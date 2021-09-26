@@ -1,15 +1,37 @@
-import { Box, ButtonPrimary } from '@primer/components';
+import { Box } from '@primer/components';
 import { ZapIcon } from '@primer/octicons-react';
 import { PageHeader } from '../../layout/PageHeader';
+import { Spell, useGetSpellsQuery } from '../../generated/graphql';
+import { useEffect } from 'react';
+import { SpellCard } from '../../components/spells/SpellCard';
+import { PageLoading } from '../../layout/PageLoading';
+
+const spellWithId = (spell: any, idx: number) : Spell => ({
+    ...spell,
+    _id: idx.toString(),
+});
 
 export const SpellsPage = () => {
+    const { data, error, loading } = useGetSpellsQuery();
+
+    useEffect(() => {
+        console.log(data);
+    }, [data])
+
+    useEffect(() => {
+        console.error(error);
+    }, [error])
+
     return (
-        <>
+        <Box display="flex" flexDirection="column">
             <PageHeader title='Spells' icon={ZapIcon} />
-            <Box m={2}>
-                <ButtonPrimary>Fetch</ButtonPrimary>
-                <p>This will get Primer text styles.</p>
-            </Box>
-        </>
+            { loading ? (
+                <PageLoading />
+            ) : (
+                <Box m={2}>
+                    {data?.spells.map((spell, idx) => <SpellCard spell={spellWithId(spell, idx)} />)}
+                </Box>
+            )}
+        </Box>
     );
 };

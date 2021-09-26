@@ -1,0 +1,17 @@
+query getSpells {
+    spells(limit:500) {
+        name
+        level
+        concentration
+        desc
+        attack_type
+        material
+        classes {
+            name
+        }
+        school {
+              name
+              desc
+        }
+    }
+}
