@@ -1,17 +1,13 @@
 import React from 'react';
-import { BaseStyles, Box, Heading, ThemeProvider } from '@primer/components';
-import { PageHeader } from './layout/PageHeader';
+import { BaseStyles, ThemeProvider } from '@primer/components';
+import { AppHeader } from './layout/AppHeader';
+import { SpellsPage } from './pages/spells/SpellsPage';
 
-const App = () => (
+export const App = () => (
     <ThemeProvider>
         <BaseStyles>
-            <PageHeader />
-            <Box m={4}>
-                <Heading mb={2}>Hello, world!</Heading>
-                <p>This will get Primer text styles.</p>
-            </Box>
+            <AppHeader />
+            <SpellsPage />
         </BaseStyles>
     </ThemeProvider>
 );
-
-export default App;

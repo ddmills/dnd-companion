@@ -1,13 +1,22 @@
-import { Dropdown, Header, StyledOcticon } from '@primer/components';
-import { RepoIcon } from '@primer/octicons-react';
+import { Box, Heading, StyledOcticon } from '@primer/components';
+import styled from 'styled-components';
 
-export const PageHeader = () => (
-    <Header>
-        <Header.Item>
-            <Header.Link href="#" fontSize={2}>
-                <StyledOcticon icon={RepoIcon} size={32} mr={2} />
-                <span>D&D Companion</span>
-            </Header.Link>
-        </Header.Item>
-    </Header>
+const SubHeader = styled.div`
+    background-color: #dedede;
+`;
+
+interface PageHeaderProps {
+    icon?: React.ElementType,
+    title?: string
+};
+
+export const PageHeader = ({ title, icon }: PageHeaderProps) => (
+    <SubHeader>
+        <Box>
+            <Heading fontSize={3} p={3}>
+                {icon && <StyledOcticon icon={icon} size={24} mr={1}/>}
+                <span>{title}</span>
+            </Heading>
+        </Box>
+    </SubHeader>
 );
