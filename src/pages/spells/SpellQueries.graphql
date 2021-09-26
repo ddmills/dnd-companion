@@ -1,0 +1,40 @@
+query getSpells {
+    spells(limit:500) {
+        name
+        level
+        concentration
+        desc
+        attack_type
+        material
+        casting_time
+        classes {
+            name
+        }
+    }
+}
+
+query getSpellByName($name: String) {
+    spell(
+        filter: {
+            name: $name
+        }
+    ) {
+        name
+        level
+        concentration
+        desc
+        attack_type
+        material
+        casting_time
+        classes {
+            name
+        }
+        school {
+            name
+            desc
+        }
+        components
+        ritual
+        higher_level
+    }
+}

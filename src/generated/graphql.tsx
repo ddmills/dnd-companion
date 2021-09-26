@@ -15167,7 +15167,14 @@ export type WeaponProperty = {
 export type GetSpellsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetSpellsQuery = { __typename?: 'Query', spells: Array<{ __typename?: 'Spell', name?: Maybe<string>, level?: Maybe<number>, concentration?: Maybe<boolean>, desc?: Maybe<Array<Maybe<string>>>, attack_type?: Maybe<string>, material?: Maybe<string>, classes?: Maybe<Array<Maybe<{ __typename?: 'SpellClasses', name?: Maybe<string> }>>>, school?: Maybe<{ __typename?: 'MagicSchool', name?: Maybe<string>, desc?: Maybe<string> }> }> };
+export type GetSpellsQuery = { __typename?: 'Query', spells: Array<{ __typename?: 'Spell', name?: Maybe<string>, level?: Maybe<number>, concentration?: Maybe<boolean>, desc?: Maybe<Array<Maybe<string>>>, attack_type?: Maybe<string>, material?: Maybe<string>, casting_time?: Maybe<string>, classes?: Maybe<Array<Maybe<{ __typename?: 'SpellClasses', name?: Maybe<string> }>>> }> };
+
+export type GetSpellByNameQueryVariables = Exact<{
+  name?: Maybe<Scalars['String']>;
+}>;
+
+
+export type GetSpellByNameQuery = { __typename?: 'Query', spell?: Maybe<{ __typename?: 'Spell', name?: Maybe<string>, level?: Maybe<number>, concentration?: Maybe<boolean>, desc?: Maybe<Array<Maybe<string>>>, attack_type?: Maybe<string>, material?: Maybe<string>, casting_time?: Maybe<string>, components?: Maybe<Array<Maybe<string>>>, ritual?: Maybe<boolean>, higher_level?: Maybe<Array<Maybe<string>>>, classes?: Maybe<Array<Maybe<{ __typename?: 'SpellClasses', name?: Maybe<string> }>>>, school?: Maybe<{ __typename?: 'MagicSchool', name?: Maybe<string>, desc?: Maybe<string> }> }> };
 
 
 export const GetSpellsDocument = gql`
@@ -15179,12 +15186,9 @@ export const GetSpellsDocument = gql`
     desc
     attack_type
     material
+    casting_time
     classes {
       name
-    }
-    school {
-      name
-      desc
     }
   }
 }
@@ -15216,3 +15220,54 @@ export function useGetSpellsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type GetSpellsQueryHookResult = ReturnType<typeof useGetSpellsQuery>;
 export type GetSpellsLazyQueryHookResult = ReturnType<typeof useGetSpellsLazyQuery>;
 export type GetSpellsQueryResult = Apollo.QueryResult<GetSpellsQuery, GetSpellsQueryVariables>;
+export const GetSpellByNameDocument = gql`
+    query getSpellByName($name: String) {
+  spell(filter: {name: $name}) {
+    name
+    level
+    concentration
+    desc
+    attack_type
+    material
+    casting_time
+    classes {
+      name
+    }
+    school {
+      name
+      desc
+    }
+    components
+    ritual
+    higher_level
+  }
+}
+    `;
+
+/**
+ * __useGetSpellByNameQuery__
+ *
+ * To run a query within a React component, call `useGetSpellByNameQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSpellByNameQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSpellByNameQuery({
+ *   variables: {
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useGetSpellByNameQuery(baseOptions?: Apollo.QueryHookOptions<GetSpellByNameQuery, GetSpellByNameQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSpellByNameQuery, GetSpellByNameQueryVariables>(GetSpellByNameDocument, options);
+      }
+export function useGetSpellByNameLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSpellByNameQuery, GetSpellByNameQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSpellByNameQuery, GetSpellByNameQueryVariables>(GetSpellByNameDocument, options);
+        }
+export type GetSpellByNameQueryHookResult = ReturnType<typeof useGetSpellByNameQuery>;
+export type GetSpellByNameLazyQueryHookResult = ReturnType<typeof useGetSpellByNameLazyQuery>;
+export type GetSpellByNameQueryResult = Apollo.QueryResult<GetSpellByNameQuery, GetSpellByNameQueryVariables>;

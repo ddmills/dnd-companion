@@ -1,5 +1,4 @@
 import { Box } from '@primer/components';
-import { ZapIcon } from '@primer/octicons-react';
 import { PageHeader } from '../../layout/PageHeader';
 import { Spell, useGetSpellsQuery } from '../../generated/graphql';
 import { useEffect } from 'react';
@@ -15,23 +14,21 @@ export const SpellsPage = () => {
     const { data, error, loading } = useGetSpellsQuery();
 
     useEffect(() => {
-        console.log(data);
-    }, [data])
-
-    useEffect(() => {
         console.error(error);
     }, [error])
 
     return (
-        <Box display="flex" flexDirection="column">
-            <PageHeader title='Spells' icon={ZapIcon} />
-            { loading ? (
-                <PageLoading />
-            ) : (
-                <Box m={2}>
-                    {data?.spells.map((spell, idx) => <SpellCard spell={spellWithId(spell, idx)} />)}
-                </Box>
-            )}
-        </Box>
+        <>
+            <PageHeader title='Spells' />
+            <Box display="flex" flexDirection="column" m={2}>
+                { loading ? (
+                    <PageLoading />
+                ) : (
+                    <Box>
+                        {data?.spells.map((spell, idx) => <SpellCard spell={spellWithId(spell, idx)} />)}
+                    </Box>
+                )}
+            </Box>
+        </>
     );
 };
