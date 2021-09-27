@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/dnd-companion/static/css/main.4bd174cb.chunk.css",
-    "main.js": "/dnd-companion/static/js/main.e56a4814.chunk.js",
-    "main.js.map": "/dnd-companion/static/js/main.e56a4814.chunk.js.map",
+    "main.js": "/dnd-companion/static/js/main.e47b38c5.chunk.js",
+    "main.js.map": "/dnd-companion/static/js/main.e47b38c5.chunk.js.map",
     "runtime-main.js": "/dnd-companion/static/js/runtime-main.8e826813.js",
     "runtime-main.js.map": "/dnd-companion/static/js/runtime-main.8e826813.js.map",
     "static/js/2.88f0be46.chunk.js": "/dnd-companion/static/js/2.88f0be46.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.8e826813.js",
     "static/js/2.88f0be46.chunk.js",
     "static/css/main.4bd174cb.chunk.css",
-    "static/js/main.e56a4814.chunk.js"
+    "static/js/main.e47b38c5.chunk.js"
   ]
 }
