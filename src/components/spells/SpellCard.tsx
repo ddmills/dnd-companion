@@ -1,4 +1,4 @@
-import { Box, Heading, Truncate } from '@primer/components';
+import { Box, Heading, Truncate, Text } from '@primer/components';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Spell } from '../../generated/graphql';
@@ -20,23 +20,18 @@ const Card = styled(Box)`
 export const SpellCard = ({ spell }: SpellCardProps) => {
     return (
         <Card
-            borderColor="border.default"
-            borderWidth={1}
-            borderStyle="solid"
-            borderRadius={2}
-            p={2}
-            m={2}
+            p={4}
+            pt={3}
+            pb={3}
             display="block"
             as={Link}
             to={`/spell/${spell.name}`}
         >
-            <Heading fontSize={1}>[{spell.level}] {spell.name}</Heading>
+            <Text fontSize={2} fontWeight={600}>
+                [{spell.level}] {spell.name}
+            </Text>
             <Box flex="1 1 auto">
-                {spell.classes?.map((spellClass) => {
-                    return (
-                        <span key={spellClass!._id}>{spellClass!.name} </span>
-                    );
-                })}
+                <Text>{spell.classes?.map((c) => c!.name).join(', ')}</Text>
             </Box>
             <Box>
                 <Truncate maxWidth="100%" title={spell.desc!.toString()}>{spell.desc}</Truncate>

@@ -1,5 +1,5 @@
-import { Box, Heading, Text } from '@primer/components';
-import { BookmarkFillIcon } from '@primer/octicons-react';
+import { Box, Flash, Heading, StyledOcticon, Text } from '@primer/components';
+import { AlertIcon, BookmarkFillIcon } from '@primer/octicons-react';
 import { PageHeader } from '../../layout/PageHeader';
 import { useGetSpellByNameQuery } from '../../generated/graphql';
 import { useEffect } from 'react';
@@ -44,9 +44,12 @@ export const SpellPage = () => {
             { loading ? (
                 <PageLoading />
             ) : (
-                <Box display="flex" flexDirection="column" ml={4} mr={4} mb={4}>
+                <Box display="flex" flexDirection="column" mt={3} ml={4} mr={4} mb={4}>
                     { notFound ? (
-                        <p>Spell not found</p>
+                        <Flash variant="warning">
+                            <StyledOcticon icon={AlertIcon} />
+                            <Text fontWeight={400}>Spell not found</Text>
+                        </Flash>
                     ) : (
                         <>
                             <Heading fontSize={3} mb={3}>

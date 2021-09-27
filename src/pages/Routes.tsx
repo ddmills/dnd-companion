@@ -1,5 +1,6 @@
-import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { AppHeader } from '../layout/AppHeader';
+import { HomePage } from './home/HomePage';
 import { SpellPage } from './spells/SpellPage';
 import { SpellsPage } from './spells/SpellsPage';
 
@@ -14,7 +15,7 @@ export const Routes = () => (
                 <SpellPage />
             </Route>
             <Route>
-                <Link to="/spells">Spells</Link>
+                <HomePage />
             </Route>
         </Switch>
     </BrowserRouter>
