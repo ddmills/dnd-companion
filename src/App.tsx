@@ -1,14 +1,17 @@
 import React from 'react';
-import { BaseStyles, ThemeProvider } from '@primer/components';
+import { BaseStyles, Box } from '@primer/components';
 import { GraphProvider } from './gql/GraphProvider';
 import { Routes } from './pages/Routes';
+import { AppThemeProvider } from './layout/AppThemeProvider';
 
 export const App = () => (
-    <ThemeProvider>
-        <BaseStyles>
-            <GraphProvider>
-                <Routes />
-            </GraphProvider>
-        </BaseStyles>
-    </ThemeProvider>
+    <AppThemeProvider>
+        <GraphProvider>
+            <Box height="100%" bg="bg.primary" overflowY="auto">
+                <BaseStyles>
+                    <Routes />
+                </BaseStyles>
+            </Box>
+        </GraphProvider>
+    </AppThemeProvider>
 );

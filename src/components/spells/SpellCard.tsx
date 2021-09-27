@@ -1,10 +1,10 @@
-import { Box, Heading, Truncate, Text } from '@primer/components';
+import { Box, Truncate, Text, themeGet } from '@primer/components';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Spell } from '../../generated/graphql';
 
 interface SpellCardProps {
-    spell: Spell
+    spell: Spell;
 }
 
 const Card = styled(Box)`
@@ -12,8 +12,9 @@ const Card = styled(Box)`
     color: inherit;
     text-decoration: inherit;
 
-    &:active, &:hover {
-        background-color: #eee;
+    &:active,
+    &:hover {
+        background-color: ${themeGet('colors.border.muted')};
     }
 `;
 
@@ -34,7 +35,9 @@ export const SpellCard = ({ spell }: SpellCardProps) => {
                 <Text>{spell.classes?.map((c) => c!.name).join(', ')}</Text>
             </Box>
             <Box>
-                <Truncate maxWidth="100%" title={spell.desc!.toString()}>{spell.desc}</Truncate>
+                <Truncate maxWidth="100%" title={spell.desc!.toString()}>
+                    {spell.desc}
+                </Truncate>
             </Box>
         </Card>
     );

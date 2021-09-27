@@ -8,7 +8,8 @@ const HomePageLink = styled(Box)`
     color: inherit;
     text-decoration: inherit;
 
-    &:active, &:hover {
+    &:active,
+    &:hover {
         background-color: #eee;
     }
 `;
@@ -17,11 +18,7 @@ export const HomePage = () => (
     <Box display="flex" flexDirection="column">
         <List>
             <ListItem>
-                <HomePageLink
-                    as={Link}
-                    to="/spells"
-                    m={4}
-                >
+                <HomePageLink as={Link} to="/spells" m={4}>
                     Spells
                 </HomePageLink>
             </ListItem>

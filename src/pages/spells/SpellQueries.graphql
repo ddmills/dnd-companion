@@ -1,5 +1,5 @@
 query getSpells {
-    spells(limit:500) {
+    spells(limit: 500) {
         name
         level
         concentration
@@ -14,11 +14,7 @@ query getSpells {
 }
 
 query getSpellByName($name: String) {
-    spell(
-        filter: {
-            name: $name
-        }
-    ) {
+    spell(filter: { name: $name }) {
         name
         level
         concentration

@@ -1,11 +1,10 @@
+import { themeGet } from '@primer/components';
 import React from 'react';
 import styled from 'styled-components';
 
 export const ListItem = styled.li`
-    border-bottom: 1px solid #ddd;
-
-    &:first-child {
-        border-top: 1px solid #ddd;
+    &:not(:last-child) {
+        border-bottom: 1px solid ${themeGet('colors.border.muted')};
     }
 `;
 

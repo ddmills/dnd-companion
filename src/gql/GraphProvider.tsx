@@ -6,11 +6,9 @@ const client = new ApolloClient({
 });
 
 interface GraphProviderProps {
-    children?: React.ReactNode
+    children?: React.ReactNode;
 }
 
-export const GraphProvider = ({children}: GraphProviderProps) => (
-    <ApolloProvider client={client}>
-        {children}
-    </ApolloProvider>
+export const GraphProvider = ({ children }: GraphProviderProps) => (
+    <ApolloProvider client={client}>{children}</ApolloProvider>
 );

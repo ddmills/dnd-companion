@@ -5,9 +5,9 @@ import { useEffect } from 'react';
 import { SpellCard } from '../../components/spells/SpellCard';
 import { PageLoading } from '../../layout/PageLoading';
 import { List, ListItem } from '../../components/spells/list/List';
-import { BookIcon, LawIcon } from '@primer/octicons-react';
+import { LawIcon } from '@primer/octicons-react';
 
-const spellWithId = (spell: any, idx: number) : Spell => ({
+const spellWithId = (spell: any, idx: number): Spell => ({
     ...spell,
     _id: idx.toString(),
 });
@@ -17,13 +17,13 @@ export const SpellsPage = () => {
 
     useEffect(() => {
         console.error(error);
-    }, [error])
+    }, [error]);
 
     return (
         <>
-            <PageHeader title='Spells' icon={LawIcon} />
+            <PageHeader title="Spells" icon={LawIcon} />
             <Box display="flex" flexDirection="column">
-                { loading ? (
+                {loading ? (
                     <PageLoading />
                 ) : (
                     <List>
