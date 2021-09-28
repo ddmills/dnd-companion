@@ -32,5 +32,10 @@ query getSpellByName($name: String) {
         components
         ritual
         higher_level
+        range
+        area_of_effect {
+            type
+            size
+        }
     }
 }

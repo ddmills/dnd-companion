@@ -15394,6 +15394,7 @@ export type GetSpellByNameQuery = {
         components?: Maybe<Array<Maybe<string>>>;
         ritual?: Maybe<boolean>;
         higher_level?: Maybe<Array<Maybe<string>>>;
+        range?: Maybe<string>;
         classes?: Maybe<
             Array<Maybe<{ __typename?: 'SpellClasses'; name?: Maybe<string> }>>
         >;
@@ -15401,6 +15402,11 @@ export type GetSpellByNameQuery = {
             __typename?: 'MagicSchool';
             name?: Maybe<string>;
             desc?: Maybe<string>;
+        }>;
+        area_of_effect?: Maybe<{
+            __typename?: 'SpellArea_of_effect';
+            type?: Maybe<string>;
+            size?: Maybe<number>;
         }>;
     }>;
 };
@@ -15489,6 +15495,11 @@ export const GetSpellByNameDocument = gql`
             components
             ritual
             higher_level
+            range
+            area_of_effect {
+                type
+                size
+            }
         }
     }
 `;

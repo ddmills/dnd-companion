@@ -1,7 +1,7 @@
 import { Box, Truncate, Text, themeGet } from '@primer/components';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Spell } from '../../generated/graphql';
+import { Spell } from '../../Models/Spell';
 
 interface SpellCardProps {
     spell: Spell;
@@ -32,10 +32,10 @@ export const SpellCard = ({ spell }: SpellCardProps) => {
                 [{spell.level}] {spell.name}
             </Text>
             <Box flex="1 1 auto">
-                <Text>{spell.classes?.map((c) => c!.name).join(', ')}</Text>
+                <Text>{spell.classes.join(', ')}</Text>
             </Box>
             <Box>
-                <Truncate maxWidth="100%" title={spell.desc!.toString()}>
+                <Truncate maxWidth="100%" title={spell.desc.toString()}>
                     {spell.desc}
                 </Truncate>
             </Box>

@@ -18,8 +18,13 @@ export const HomePage = () => (
     <Box display="flex" flexDirection="column">
         <List>
             <ListItem>
-                <HomePageLink as={Link} to="/spells" m={4}>
-                    Spells
+                <HomePageLink as={Link} to="/spellbooks" p={4}>
+                    Spellbooks
+                </HomePageLink>
+            </ListItem>
+            <ListItem>
+                <HomePageLink as={Link} to="/spells" p={4}>
+                    Spells reference
                 </HomePageLink>
             </ListItem>
         </List>

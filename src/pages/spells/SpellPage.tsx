@@ -1,10 +1,10 @@
 import { Box, Flash, Heading, StyledOcticon, Text } from '@primer/components';
 import { AlertIcon, BookmarkFillIcon } from '@primer/octicons-react';
 import { PageHeader } from '../../layout/PageHeader';
-import { useGetSpellByNameQuery } from '../../generated/graphql';
 import { useEffect } from 'react';
 import { PageLoading } from '../../layout/PageLoading';
 import { useParams } from 'react-router';
+import { useGetSpellByName } from '../../gql/SpellRepository';
 
 interface SpellPageParams {
     spellName: string;
@@ -28,22 +28,18 @@ const renderPart = (label?: string, value?: string) => {
 export const SpellPage = () => {
     const { spellName } = useParams<SpellPageParams>();
 
-    const { data, error, loading } = useGetSpellByNameQuery({
-        variables: {
-            name: spellName,
-        },
-    });
+    const { data, error, isLoading } = useGetSpellByName(spellName);
 
     useEffect(() => {
-        console.log(data);
-    }, [data]);
+        error && console.error(error);
+    }, [error]);
 
-    const notFound = !loading && !data?.spell;
+    const notFound = !isLoading && !data;
 
     return (
         <Box display="flex" flexDirection="column">
             <PageHeader title={spellName} icon={BookmarkFillIcon} />
-            {loading ? (
+            {isLoading ? (
                 <PageLoading />
             ) : (
                 <Box
@@ -62,45 +58,35 @@ export const SpellPage = () => {
                     ) : (
                         <>
                             <Heading fontSize={3} mb={3}>
-                                Level {data?.spell?.level}{' '}
-                                {data?.spell?.school?.name?.toLowerCase()}
+                                Level {data?.level}{' '}
+                                {data?.school?.toLowerCase()}
                             </Heading>
-                            {renderPart(
-                                'Casting time',
-                                data?.spell?.casting_time?.toString()
-                            )}
-                            {renderPart(
-                                'Range',
-                                data?.spell?.attack_type?.toString()
-                            )}
+                            {renderPart('Casting time', data?.castingTime)}
+                            {renderPart('Range', data?.range)}
                             {renderPart(
                                 'Components',
-                                data?.spell?.components?.join(', ')
+                                data?.components?.join(', ')
                             )}
                             {renderPart(
                                 'Concentration',
-                                data?.spell?.concentration ? 'yes' : 'no'
+                                data?.concentration ? 'yes' : 'no'
                             )}
-                            {renderPart(
-                                'Ritual',
-                                data?.spell?.ritual ? 'yes' : 'no'
-                            )}
-                            {renderPart(
-                                'School',
-                                data?.spell?.school?.name?.toLowerCase()
-                            )}
+                            {renderPart('Ritual', data?.ritual ? 'yes' : 'no')}
+                            {renderPart('School', data?.school?.toLowerCase())}
                             <Box
                                 display="flex"
                                 flexDirection="column"
                                 mt={4}
                                 mb={4}
                             >
-                                {data?.spell?.desc?.map((desc) => (
-                                    <Text mb={2}>{desc}</Text>
+                                {data?.desc?.map((desc, idx) => (
+                                    <Text mb={2} key={idx}>
+                                        {desc}
+                                    </Text>
                                 ))}
                             </Box>
 
-                            {data?.spell?.higher_level?.length! > 0 && (
+                            {data?.higherLevelDesc?.length! > 0 && (
                                 <>
                                     <Text fontWeight="bold" display="inline">
                                         Higher level:
@@ -111,9 +97,11 @@ export const SpellPage = () => {
                                         mt={2}
                                         mb={4}
                                     >
-                                        {data?.spell?.higher_level?.map(
-                                            (desc) => (
-                                                <Text mb={2}>{desc}</Text>
+                                        {data?.higherLevelDesc?.map(
+                                            (desc, idx) => (
+                                                <Text mb={2} key={idx}>
+                                                    {desc}
+                                                </Text>
                                             )
                                         )}
                                     </Box>
