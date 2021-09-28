@@ -9,7 +9,12 @@ import { SpellsPage } from './spells/SpellsPage';
 export const Routes = () => (
     <BrowserRouter>
         <AppHeader />
-        <Box display="flex" flexDirection="column" overflowY="hidden">
+        <Box
+            display="flex"
+            flexDirection="column"
+            overflowY="auto"
+            height="100%"
+        >
             <Switch>
                 <Route path="/spells">
                     <SpellsPage />

@@ -1,5 +1,3 @@
-import { PlayerClass } from './PlayerClasses';
-
 export type Spell = {
     castingTime?: string;
     classes: string[];
@@ -14,4 +12,5 @@ export type Spell = {
     ritual: boolean;
     school?: string;
     range?: string;
+    uriSafeName: string;
 };

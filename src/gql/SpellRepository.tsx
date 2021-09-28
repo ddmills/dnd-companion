@@ -26,6 +26,7 @@ const mapApolloSpell = (apolloSpell: Partial<ApolloSpell>): Spell => ({
     ritual: apolloSpell.ritual ?? false,
     school: apolloSpell.school?.name?.toString(),
     range: apolloSpell.range?.toString(),
+    uriSafeName: encodeURIComponent(apolloSpell.name!),
 });
 
 export const useGetSpells = (): QueryResult<Spell[]> => {

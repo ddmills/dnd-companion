@@ -26,7 +26,8 @@ const renderPart = (label?: string, value?: string) => {
 };
 
 export const SpellPage = () => {
-    const { spellName } = useParams<SpellPageParams>();
+    const { spellName: encodedSpellName } = useParams<SpellPageParams>();
+    const spellName = decodeURIComponent(encodedSpellName);
 
     const { data, error, isLoading } = useGetSpellByName(spellName);
 
