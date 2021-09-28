@@ -6,7 +6,6 @@ import { PageLoading } from '../../layout/PageLoading';
 import { List, ListItem } from '../../components/spells/list/List';
 import { LawIcon, SearchIcon } from '@primer/octicons-react';
 import { useGetSpells } from '../../gql/SpellRepository';
-import { Spell } from '../../Models/Spell';
 
 export const SpellsPage = () => {
     const { data, error, isLoading } = useGetSpells();
