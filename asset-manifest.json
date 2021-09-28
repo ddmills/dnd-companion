@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/dnd-companion/static/css/main.4bd174cb.chunk.css",
-    "main.js": "/dnd-companion/static/js/main.e47b38c5.chunk.js",
-    "main.js.map": "/dnd-companion/static/js/main.e47b38c5.chunk.js.map",
-    "runtime-main.js": "/dnd-companion/static/js/runtime-main.8e826813.js",
-    "runtime-main.js.map": "/dnd-companion/static/js/runtime-main.8e826813.js.map",
-    "static/js/2.88f0be46.chunk.js": "/dnd-companion/static/js/2.88f0be46.chunk.js",
-    "static/js/2.88f0be46.chunk.js.map": "/dnd-companion/static/js/2.88f0be46.chunk.js.map",
-    "static/js/3.0035db05.chunk.js": "/dnd-companion/static/js/3.0035db05.chunk.js",
-    "static/js/3.0035db05.chunk.js.map": "/dnd-companion/static/js/3.0035db05.chunk.js.map",
+    "main.js": "/dnd-companion/static/js/main.4f6e9075.chunk.js",
+    "main.js.map": "/dnd-companion/static/js/main.4f6e9075.chunk.js.map",
+    "runtime-main.js": "/dnd-companion/static/js/runtime-main.403ecc41.js",
+    "runtime-main.js.map": "/dnd-companion/static/js/runtime-main.403ecc41.js.map",
+    "static/js/2.ad9f5588.chunk.js": "/dnd-companion/static/js/2.ad9f5588.chunk.js",
+    "static/js/2.ad9f5588.chunk.js.map": "/dnd-companion/static/js/2.ad9f5588.chunk.js.map",
+    "static/js/3.cc6c87b1.chunk.js": "/dnd-companion/static/js/3.cc6c87b1.chunk.js",
+    "static/js/3.cc6c87b1.chunk.js.map": "/dnd-companion/static/js/3.cc6c87b1.chunk.js.map",
     "index.html": "/dnd-companion/index.html",
     "static/css/main.4bd174cb.chunk.css.map": "/dnd-companion/static/css/main.4bd174cb.chunk.css.map",
-    "static/js/2.88f0be46.chunk.js.LICENSE.txt": "/dnd-companion/static/js/2.88f0be46.chunk.js.LICENSE.txt"
+    "static/js/2.ad9f5588.chunk.js.LICENSE.txt": "/dnd-companion/static/js/2.ad9f5588.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.8e826813.js",
-    "static/js/2.88f0be46.chunk.js",
+    "static/js/runtime-main.403ecc41.js",
+    "static/js/2.ad9f5588.chunk.js",
     "static/css/main.4bd174cb.chunk.css",
-    "static/js/main.e47b38c5.chunk.js"
+    "static/js/main.4f6e9075.chunk.js"
   ]
 }
