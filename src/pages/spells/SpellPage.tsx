@@ -72,7 +72,8 @@ export const SpellPage = () => {
                                 data?.concentration ? 'yes' : 'no'
                             )}
                             {renderPart('Ritual', data?.ritual ? 'yes' : 'no')}
-                            {renderPart('School', data?.school?.toLowerCase())}
+                            {renderPart('Classes', data?.classes.join(', '))}
+
                             <Box
                                 display="flex"
                                 flexDirection="column"
