@@ -65,6 +65,7 @@ export const SpellPage = () => {
                                 {data?.school?.toLowerCase()}
                             </Heading>
                             {renderPart('Casting time', data?.castingTime)}
+                            {renderPart('Duration', data?.duration)}
                             {renderPart('Range', data?.range)}
                             {renderPart(
                                 'Components',

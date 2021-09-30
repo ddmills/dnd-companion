@@ -22,6 +22,7 @@ query getSpellByName($name: String) {
         attack_type
         material
         casting_time
+        duration
         classes {
             name
         }
