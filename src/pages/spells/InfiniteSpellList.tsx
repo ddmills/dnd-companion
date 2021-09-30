@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FixedSizeList } from 'react-window';
 import styled from 'styled-components';
 import { Spell } from '../../Models/Spell';
+import { useResizeDetector } from 'react-resize-detector';
 
 const Card = styled(Box)`
     display: block;
@@ -53,42 +54,13 @@ const SpellListContainer = styled.div`
 
 export const InfiniteSpellList = ({ spells }: InfiniteSpellListProps) => {
     const containerRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-    const [size, setSize] = useState({ width: 200, height: 200 });
-
-    const [dimensions, setDimensions] = useState({
-        height: window.innerHeight,
-        width: window.innerWidth,
-    });
-
-    useEffect(() => {
-        const handleResize = () => {
-            setDimensions({
-                height: window.innerHeight,
-                width: window.innerWidth,
-            });
-        };
-
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    });
-
-    useEffect(() => {
-        const { width, height } = containerRef.current.getBoundingClientRect();
-
-        setSize({
-            width,
-            height,
-        });
-    }, [dimensions.width, dimensions.height]);
+    const { width, height } = useResizeDetector({ targetRef: containerRef });
 
     return (
         <SpellListContainer ref={containerRef}>
             <FixedSizeList
-                width={size.width}
-                height={size.height}
+                width={width ?? 320}
+                height={height ?? 300}
                 itemCount={spells.length}
                 itemData={spells}
                 itemSize={56}

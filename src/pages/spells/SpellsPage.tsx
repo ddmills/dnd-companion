@@ -5,10 +5,13 @@ import { PageLoading } from '../../layout/PageLoading';
 import { RepoIcon, SearchIcon } from '@primer/octicons-react';
 import { useGetSpells } from '../../gql/SpellRepository';
 import { InfiniteSpellList } from './InfiniteSpellList';
+import { Drawer } from '../../components/Drawer';
+import { SpellsListFilter } from './SpellsListFilter';
 
 export const SpellsPage = () => {
     const { data, error, isLoading } = useGetSpells();
     const [nameFilter, setNameFilter] = useState('');
+    const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
 
     const handleChange = (e: any) => {
         setNameFilter(e.target.value);
@@ -22,9 +25,20 @@ export const SpellsPage = () => {
         error && console.error(error);
     }, [error]);
 
+    const showFilter = () => {
+        setIsFilterDrawerOpen(true);
+    };
+
+    const hideDrawer = () => {
+        setIsFilterDrawerOpen(false);
+    };
+
     return (
         <>
-            <PageHeader title="Spells" icon={RepoIcon} />
+            <PageHeader>
+                <PageHeader.Title icon={RepoIcon} title="Spells" />
+                <PageHeader.Action icon={SearchIcon} label="search" onClick={showFilter} />
+            </PageHeader>
             <Box
                 display="flex"
                 flexDirection="column"
@@ -45,6 +59,9 @@ export const SpellsPage = () => {
                             onChange={handleChange}
                         />
                         <InfiniteSpellList spells={spells} />
+                        <Drawer isOpen={isFilterDrawerOpen} handleClose={hideDrawer}>
+                            <SpellsListFilter handleClose={hideDrawer} />
+                        </Drawer>
                     </>
                 )}
             </Box>

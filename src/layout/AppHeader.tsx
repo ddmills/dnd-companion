@@ -1,7 +1,9 @@
 import { Box, themeGet, StyledOcticon } from '@primer/components';
 import { ChevronLeftIcon, RepoIcon } from '@primer/octicons-react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
+import { UnstyledButton } from '../components/buttons/UnstyledButton';
 import styled from 'styled-components';
+
 
 const LogoLink = styled(Link)`
     font-weight: bold;
@@ -9,17 +11,11 @@ const LogoLink = styled(Link)`
     color: ${themeGet('colors.fg.subtle')};
 `;
 
-const BackBtn = styled.button`
+const BackBtn = styled(UnstyledButton)`
     position: absolute;
     left: 16px;
     top: 8px;
-    text-decoration: none;
     color: ${themeGet('colors.fg.default')};
-    background: none;
-    border: none;
-    padding: 0;
-    font: inherit;
-    outline: inherit;
     display: inline-flex;
     align-items: center;
 `;

@@ -39,7 +39,9 @@ export const SpellPage = () => {
 
     return (
         <Box display="flex" flexDirection="column">
-            <PageHeader title={spellName} icon={BookmarkFillIcon} />
+            <PageHeader>
+                <PageHeader.Title icon={BookmarkFillIcon} title={spellName} />
+            </PageHeader>
             {isLoading ? (
                 <PageLoading />
             ) : (

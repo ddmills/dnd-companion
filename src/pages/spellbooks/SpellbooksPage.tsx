@@ -5,7 +5,9 @@ import { PageHeader } from '../../layout/PageHeader';
 export const SpellbooksPage = () => {
     return (
         <>
-            <PageHeader title="Spellbooks" icon={StackIcon} />
+            <PageHeader>
+                <PageHeader.Title icon={StackIcon} title="Spellbooks" />
+            </PageHeader>
             <Box display="flex" flexDirection="column"></Box>
         </>
     );
