@@ -48,6 +48,7 @@ const ClassCell = styled(UnstyledButton)`
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: .25rem;
 `;
 
 const SpellLevelCell = styled(UnstyledButton)`
@@ -57,6 +58,7 @@ const SpellLevelCell = styled(UnstyledButton)`
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: .25rem;
 `;
 
 interface SpellsListFilterProps {
