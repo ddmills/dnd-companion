@@ -37,7 +37,11 @@ export const SpellsPage = () => {
         <>
             <PageHeader>
                 <PageHeader.Title icon={RepoIcon} title="Spells" />
-                <PageHeader.Action icon={SearchIcon} label="search" onClick={showFilter} />
+                <PageHeader.Action
+                    icon={SearchIcon}
+                    label="search"
+                    onClick={showFilter}
+                />
             </PageHeader>
             <Box
                 display="flex"
@@ -59,7 +63,10 @@ export const SpellsPage = () => {
                             onChange={handleChange}
                         />
                         <InfiniteSpellList spells={spells} />
-                        <Drawer isOpen={isFilterDrawerOpen} handleClose={hideDrawer}>
+                        <Drawer
+                            isOpen={isFilterDrawerOpen}
+                            handleClose={hideDrawer}
+                        >
                             <SpellsListFilter handleClose={hideDrawer} />
                         </Drawer>
                     </>

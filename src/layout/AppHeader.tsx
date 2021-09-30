@@ -4,7 +4,6 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import { UnstyledButton } from '../components/buttons/UnstyledButton';
 import styled from 'styled-components';
 
-
 const LogoLink = styled(Link)`
     font-weight: bold;
     text-decoration: inherit;

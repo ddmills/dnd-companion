@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const UnstyledButton =  styled.button`
+export const UnstyledButton = styled.button`
     display: inline-block;
     text-decoration: none;
     color: inherit;

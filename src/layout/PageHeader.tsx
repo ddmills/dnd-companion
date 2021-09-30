@@ -8,7 +8,12 @@ interface PageHeaderProps {
 }
 
 export const PageHeader = ({ children }: PageHeaderProps) => (
-    <Box bg="canvas.inset" boxShadow="shadow.small" display="flex" justifyContent="space-between">
+    <Box
+        bg="canvas.inset"
+        boxShadow="shadow.small"
+        display="flex"
+        justifyContent="space-between"
+    >
         {children}
     </Box>
 );
@@ -18,7 +23,7 @@ interface PageHeaderTitleProps {
     title: string;
 }
 
-PageHeader.Title = ({ icon, title } : PageHeaderTitleProps) => (
+PageHeader.Title = ({ icon, title }: PageHeaderTitleProps) => (
     <Heading fontSize={3} fontWeight={600} p={4}>
         {icon && <StyledOcticon icon={icon} size={24} mr={1} />}
         <span>{title}</span>
@@ -31,12 +36,18 @@ interface PageHeaderActionProp {
     onClick: () => void;
 }
 
-PageHeader.Action = ({ icon, label, onClick } : PageHeaderActionProp) => (
+PageHeader.Action = ({ icon, label, onClick }: PageHeaderActionProp) => (
     <ActionButton onClick={onClick}>
-        {icon && <StyledOcticon icon={SearchIcon} size={24} mr={1} aria-label={label}/>}
+        {icon && (
+            <StyledOcticon
+                icon={SearchIcon}
+                size={24}
+                mr={1}
+                aria-label={label}
+            />
+        )}
     </ActionButton>
 );
-
 
 const ActionButton = styled(UnstyledButton)`
     padding: 24px;
