@@ -23,7 +23,6 @@ const CloseButton = styled(UnstyledButton)`
     }
 `;
 
-
 const ClassGrid = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -48,7 +47,7 @@ const ClassCell = styled(UnstyledButton)`
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: .25rem;
+    border-radius: 0.25rem;
 `;
 
 const SpellLevelCell = styled(UnstyledButton)`
@@ -58,7 +57,7 @@ const SpellLevelCell = styled(UnstyledButton)`
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: .25rem;
+    border-radius: 0.25rem;
 `;
 
 interface SpellsListFilterProps {
@@ -68,14 +67,16 @@ interface SpellsListFilterProps {
 export const SpellsListFilter = ({ handleClose }: SpellsListFilterProps) => {
     return (
         <Box overflow="auto" height="100%">
-            <TitleBar  p={2} as="h3" fontSize={2}>
+            <TitleBar p={2} as="h3" fontSize={2}>
                 <Text p={2}>Filter</Text>
                 <CloseButton onClick={handleClose}>
                     <StyledOcticon icon={XIcon} size={32} />
                 </CloseButton>
             </TitleBar>
             <Box p={3}>
-                <Text pb={2} display="block">Class</Text>
+                <Text pb={2} display="block">
+                    Class
+                </Text>
                 <ClassGrid>
                     <ClassCell>Bard</ClassCell>
                     <ClassCell>Cleric</ClassCell>
@@ -86,7 +87,9 @@ export const SpellsListFilter = ({ handleClose }: SpellsListFilterProps) => {
                     <ClassCell>Warlock</ClassCell>
                     <ClassCell>Wizard</ClassCell>
                 </ClassGrid>
-                <Text pb={2} display="block">Spell level</Text>
+                <Text pb={2} display="block">
+                    Spell level
+                </Text>
                 <SpellLevelGrid>
                     <SpellLevelCell>0</SpellLevelCell>
                     <SpellLevelCell>1</SpellLevelCell>
