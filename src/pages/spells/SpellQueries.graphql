@@ -3,10 +3,15 @@ query getSpells {
         name
         level
         concentration
+        ritual
+        components
         desc
         attack_type
         material
         casting_time
+        school {
+            name
+        }
         classes {
             name
         }

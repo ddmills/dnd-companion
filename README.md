@@ -45,7 +45,6 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-
 ## Logo
 
 The app logo was created by [Chanut is Industries](https://www.behance.net/chanutis)

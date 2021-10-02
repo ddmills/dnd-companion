@@ -22,7 +22,6 @@ export const SpellsPage = () => {
 
     const handleTextFilterChange = useCallback(
         (e: any) => {
-            console.log('handleTextFilterChange');
             filter.setTextFilter(e.target.value);
         },
         [filter]

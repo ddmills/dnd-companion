@@ -24,7 +24,7 @@ const mapApolloSpell = (apolloSpell: Partial<ApolloSpell>): Spell => ({
     material: apolloSpell.material?.toString(),
     name: apolloSpell.name!,
     ritual: apolloSpell.ritual ?? false,
-    school: apolloSpell.school?.name?.toString(),
+    school: apolloSpell.school?.name?.toString() ?? '',
     range: apolloSpell.range?.toString(),
     uriSafeName: encodeURIComponent(apolloSpell.name!),
 });
@@ -43,6 +43,7 @@ export const useGetSpells = (): QueryResult<Spell[]> => {
     return {
         error,
         isLoading,
+        // @ts-ignore
         data: data!.spells.map((s) => mapApolloSpell(s)),
     };
 };

@@ -15366,10 +15366,13 @@ export type GetSpellsQuery = {
         name?: Maybe<string>;
         level?: Maybe<number>;
         concentration?: Maybe<boolean>;
+        ritual?: Maybe<boolean>;
+        components?: Maybe<Array<Maybe<string>>>;
         desc?: Maybe<Array<Maybe<string>>>;
         attack_type?: Maybe<string>;
         material?: Maybe<string>;
         casting_time?: Maybe<string>;
+        school?: Maybe<{ __typename?: 'MagicSchool'; name?: Maybe<string> }>;
         classes?: Maybe<
             Array<Maybe<{ __typename?: 'SpellClasses'; name?: Maybe<string> }>>
         >;
@@ -15418,10 +15421,15 @@ export const GetSpellsDocument = gql`
             name
             level
             concentration
+            ritual
+            components
             desc
             attack_type
             material
             casting_time
+            school {
+                name
+            }
             classes {
                 name
             }

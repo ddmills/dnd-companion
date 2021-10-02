@@ -10,7 +10,7 @@ export type Spell = {
     material?: string;
     name: string;
     ritual: boolean;
-    school?: string;
+    school: string;
     range?: string;
     uriSafeName: string;
 };

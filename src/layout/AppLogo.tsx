@@ -1,5 +1,3 @@
 import { ReactComponent as Logo } from '../logo.svg';
 
-export const AppLogo = () => (
-    <Logo/>
-);
+export const AppLogo = () => <Logo />;

@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { PageLoading } from '../../layout/PageLoading';
 import { useParams } from 'react-router';
 import { useGetSpellByName } from '../../gql/SpellRepository';
+import { getSpellSchoolColor } from '../../util/LevelStringFriendly';
 
 interface SpellPageParams {
     spellName: string;
@@ -60,9 +61,13 @@ export const SpellPage = () => {
                         </Flash>
                     ) : (
                         <>
-                            <Heading fontSize={3} mb={3}>
+                            <Heading
+                                fontSize={3}
+                                mb={3}
+                                color={getSpellSchoolColor(data?.school)}
+                            >
                                 Level {data?.level}{' '}
-                                {data?.school?.toLowerCase()}
+                                <Text>{data?.school?.toLowerCase()}</Text>
                             </Heading>
                             {renderPart('Casting time', data?.castingTime)}
                             {renderPart('Duration', data?.duration)}
