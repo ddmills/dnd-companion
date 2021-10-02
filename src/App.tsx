@@ -4,6 +4,7 @@ import { GraphProvider } from './gql/GraphProvider';
 import { Routes } from './pages/Routes';
 import { AppThemeProvider } from './layout/AppThemeProvider';
 import styled from 'styled-components';
+import { SpellSearchProvider } from './pages/spells/SpellSearchContext';
 
 const Base = styled(BaseStyles)`
     height: 100%;
@@ -14,11 +15,13 @@ const Base = styled(BaseStyles)`
 export const App = () => (
     <AppThemeProvider>
         <GraphProvider>
-            <Box height="100%" bg="bg.primary" overflowY="auto">
-                <Base>
-                    <Routes />
-                </Base>
-            </Box>
+            <SpellSearchProvider>
+                <Box height="100%" bg="bg.primary" overflowY="auto">
+                    <Base>
+                        <Routes />
+                    </Base>
+                </Box>
+            </SpellSearchProvider>
         </GraphProvider>
     </AppThemeProvider>
 );

@@ -6,8 +6,13 @@ import {
     themeGet,
 } from '@primer/components';
 import { XIcon } from '@primer/octicons-react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
+import { isInterfaceDeclaration } from 'typescript';
 import { UnstyledButton } from '../../components/buttons/UnstyledButton';
+import { useSpellSearch } from './SpellSearchContext';
+
+const capitalizeFirstLetter = (str: string) : string => str.charAt(0).toUpperCase() + str.slice(1);
 
 const TitleBar = styled(Heading)`
     display: flex;
@@ -40,8 +45,24 @@ const SpellLevelGrid = styled.div`
     grid-row-gap: 8px;
 `;
 
-const ClassCell = styled(UnstyledButton)`
+
+
+interface ClassCellProps {
+    isSelected: boolean;
+};
+
+const ClassCell = styled.button<ClassCellProps>`
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+    background: none;
+    padding: 0;
+    font: inherit;
+    outline: inherit;
+
     background-color: ${themeGet('colors.canvas.subtle')};
+    border: 3px solid transparent;
+    border-color: ${({isSelected}) => isSelected ? themeGet('colors.accent.emphasis') : 'transparent'};
     height: 100%;
     width: 100%;
     display: flex;
@@ -50,8 +71,19 @@ const ClassCell = styled(UnstyledButton)`
     border-radius: 0.25rem;
 `;
 
-const SpellLevelCell = styled(UnstyledButton)`
+const SpellLevelCell = styled.button<ClassCellProps>`
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+    background: none;
+    padding: 0;
+    font: inherit;
+    outline: inherit;
+
     background-color: ${themeGet('colors.canvas.subtle')};
+    border: 3px solid transparent;
+
+    border-color: ${({isSelected}) => isSelected ? themeGet('colors.accent.emphasis') : 'transparent'};
     height: 100%;
     width: 100%;
     display: flex;
@@ -59,12 +91,57 @@ const SpellLevelCell = styled(UnstyledButton)`
     align-items: center;
     border-radius: 0.25rem;
 `;
+
+const playerClasses = [
+    'bard',
+    'cleric',
+    'druid',
+    'paladin',
+    'ranger',
+    'sorcerer',
+    'warlock',
+    'wizard',
+];
+
+const spellLevels = [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+];
 
 interface SpellsListFilterProps {
     handleClose: () => void;
 }
 
 export const SpellsListFilter = ({ handleClose }: SpellsListFilterProps) => {
+    const { classFilter, addClass, removeClass, levelFilter, addLevel, removeLevel } = useSpellSearch();
+
+    const isClassSelected = (className: string) => classFilter.has(className);
+    const isLevelSelected = (level: number) => levelFilter.has(level);
+
+    const toggleClass = (className: string) => () => {
+        if (isClassSelected(className)) {
+            removeClass(className);
+        } else {
+            addClass(className);
+        }
+    };
+
+    const toggleLevel = (level: number) => () => {
+        if (isLevelSelected(level)) {
+            removeLevel(level);
+        } else {
+            addLevel(level);
+        }
+    };
+
     return (
         <Box overflow="auto" height="100%">
             <TitleBar p={2} as="h3" fontSize={2}>
@@ -78,29 +155,29 @@ export const SpellsListFilter = ({ handleClose }: SpellsListFilterProps) => {
                     Class
                 </Text>
                 <ClassGrid>
-                    <ClassCell>Bard</ClassCell>
-                    <ClassCell>Cleric</ClassCell>
-                    <ClassCell>Druid</ClassCell>
-                    <ClassCell>Paladin</ClassCell>
-                    <ClassCell>Ranger</ClassCell>
-                    <ClassCell>Sorcerer</ClassCell>
-                    <ClassCell>Warlock</ClassCell>
-                    <ClassCell>Wizard</ClassCell>
+                    {playerClasses.map((playerClass) => (
+                        <ClassCell
+                            key={playerClass}
+                            isSelected={isClassSelected(playerClass)}
+                            onClick={toggleClass(playerClass)}
+                        >
+                            {capitalizeFirstLetter(playerClass)}
+                        </ClassCell>
+                    ))}
                 </ClassGrid>
                 <Text pb={2} display="block">
                     Spell level
                 </Text>
                 <SpellLevelGrid>
-                    <SpellLevelCell>0</SpellLevelCell>
-                    <SpellLevelCell>1</SpellLevelCell>
-                    <SpellLevelCell>2</SpellLevelCell>
-                    <SpellLevelCell>3</SpellLevelCell>
-                    <SpellLevelCell>4</SpellLevelCell>
-                    <SpellLevelCell>5</SpellLevelCell>
-                    <SpellLevelCell>6</SpellLevelCell>
-                    <SpellLevelCell>7</SpellLevelCell>
-                    <SpellLevelCell>8</SpellLevelCell>
-                    <SpellLevelCell>9</SpellLevelCell>
+                    {spellLevels.map((spellLevel) => (
+                        <SpellLevelCell
+                            key={spellLevel}
+                            isSelected={isLevelSelected(spellLevel)}
+                            onClick={toggleLevel(spellLevel)}
+                        >
+                            {spellLevel.toString()}
+                        </SpellLevelCell>
+                    ))}
                 </SpellLevelGrid>
             </Box>
         </Box>
