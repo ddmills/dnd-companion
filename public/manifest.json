@@ -1,6 +1,6 @@
 {
-    "short_name": "React App",
-    "name": "Create React App Sample",
+    "short_name": "D&D Companion",
+    "name": "Dungeons & Dragons Companion App",
     "icons": [
         {
             "src": "favicon.ico",
@@ -20,6 +20,6 @@
     ],
     "start_url": ".",
     "display": "standalone",
-    "theme_color": "#000000",
-    "background_color": "#ffffff"
+    "theme_color": "#adbac7",
+    "background_color": "#171c23"
 }

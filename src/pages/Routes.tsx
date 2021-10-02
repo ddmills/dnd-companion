@@ -7,7 +7,7 @@ import { SpellPage } from './spells/SpellPage';
 import { SpellsPage } from './spells/SpellsPage';
 
 export const Routes = () => (
-    <BrowserRouter basename='/dnd-companion'>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
         <AppHeader />
         <Box
             display="flex"
