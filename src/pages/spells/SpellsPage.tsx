@@ -1,37 +1,40 @@
-import { Box, TextInput } from '@primer/components';
+import { Box, TextInput, useTheme } from '@primer/components';
 import { PageHeader } from '../../layout/PageHeader';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { PageLoading } from '../../layout/PageLoading';
 import { RepoIcon, SearchIcon } from '@primer/octicons-react';
 import { useGetSpells } from '../../gql/SpellRepository';
 import { InfiniteSpellList } from './InfiniteSpellList';
 import { Drawer } from '../../components/Drawer';
 import { SpellsListFilter } from './SpellsListFilter';
+import { useSpellSearch } from './SpellSearchContext';
 
 export const SpellsPage = () => {
     const { data, error, isLoading } = useGetSpells();
-    const [nameFilter, setNameFilter] = useState('');
+    const filter = useSpellSearch();
     const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
-
-    const handleChange = (e: any) => {
-        setNameFilter(e.target.value);
-    };
-
-    const lowerFilter = nameFilter.toLowerCase();
-    const spells =
-        data?.filter((s) => s.name.toLowerCase().includes(lowerFilter)) || [];
+    const spells = filter.apply(data).sort((s1, s2) => s1.level - s2.level);
+    const { theme } = useTheme();
 
     useEffect(() => {
         error && console.error(error);
     }, [error]);
 
-    const showFilter = () => {
-        setIsFilterDrawerOpen(true);
-    };
+    const handleTextFilterChange = useCallback(
+        (e: any) => {
+            console.log('handleTextFilterChange');
+            filter.setTextFilter(e.target.value);
+        },
+        [filter]
+    );
 
-    const hideDrawer = () => {
+    const showFilter = useCallback(() => {
+        setIsFilterDrawerOpen(true);
+    }, [setIsFilterDrawerOpen]);
+
+    const hideDrawer = useCallback(() => {
         setIsFilterDrawerOpen(false);
-    };
+    }, [setIsFilterDrawerOpen]);
 
     return (
         <>
@@ -41,6 +44,11 @@ export const SpellsPage = () => {
                     icon={SearchIcon}
                     label="search"
                     onClick={showFilter}
+                    color={
+                        filter.hasFilter()
+                            ? theme?.colors.accent.emphasis
+                            : 'inherit'
+                    }
                 />
             </PageHeader>
             <Box
@@ -58,9 +66,9 @@ export const SpellsPage = () => {
                             icon={SearchIcon}
                             aria-label="Spell name"
                             name="spell-name"
-                            placeholder="Filter spells"
-                            value={nameFilter}
-                            onChange={handleChange}
+                            placeholder="Search spells"
+                            value={filter.textFilter}
+                            onChange={handleTextFilterChange}
                         />
                         <InfiniteSpellList spells={spells} />
                         <Drawer

@@ -1,5 +1,5 @@
 import { Box, Text, themeGet } from '@primer/components';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FixedSizeList } from 'react-window';
 import styled from 'styled-components';

@@ -10,6 +10,8 @@ const Base = styled(BaseStyles)`
     height: 100%;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
+    position: relative;
 `;
 
 export const App = () => (

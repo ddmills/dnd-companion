@@ -6,18 +6,19 @@ import {
     themeGet,
 } from '@primer/components';
 import { XIcon } from '@primer/octicons-react';
-import { useEffect } from 'react';
+import { useCallback } from 'react';
 import styled from 'styled-components';
-import { isInterfaceDeclaration } from 'typescript';
 import { UnstyledButton } from '../../components/buttons/UnstyledButton';
 import { useSpellSearch } from './SpellSearchContext';
 
-const capitalizeFirstLetter = (str: string) : string => str.charAt(0).toUpperCase() + str.slice(1);
+const capitalizeFirstLetter = (str: string): string =>
+    str.charAt(0).toUpperCase() + str.slice(1);
 
 const TitleBar = styled(Heading)`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #171c23;
 `;
 
 const CloseButton = styled(UnstyledButton)`
@@ -45,11 +46,9 @@ const SpellLevelGrid = styled.div`
     grid-row-gap: 8px;
 `;
 
-
-
 interface ClassCellProps {
     isSelected: boolean;
-};
+}
 
 const ClassCell = styled.button<ClassCellProps>`
     display: inline-block;
@@ -62,7 +61,8 @@ const ClassCell = styled.button<ClassCellProps>`
 
     background-color: ${themeGet('colors.canvas.subtle')};
     border: 3px solid transparent;
-    border-color: ${({isSelected}) => isSelected ? themeGet('colors.accent.emphasis') : 'transparent'};
+    border-color: ${({ isSelected }) =>
+        isSelected ? themeGet('colors.accent.emphasis') : 'transparent'};
     height: 100%;
     width: 100%;
     display: flex;
@@ -83,7 +83,8 @@ const SpellLevelCell = styled.button<ClassCellProps>`
     background-color: ${themeGet('colors.canvas.subtle')};
     border: 3px solid transparent;
 
-    border-color: ${({isSelected}) => isSelected ? themeGet('colors.accent.emphasis') : 'transparent'};
+    border-color: ${({ isSelected }) =>
+        isSelected ? themeGet('colors.accent.emphasis') : 'transparent'};
     height: 100%;
     width: 100%;
     display: flex;
@@ -103,28 +104,30 @@ const playerClasses = [
     'wizard',
 ];
 
-const spellLevels = [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9
-];
+const spellLevels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 interface SpellsListFilterProps {
     handleClose: () => void;
 }
 
 export const SpellsListFilter = ({ handleClose }: SpellsListFilterProps) => {
-    const { classFilter, addClass, removeClass, levelFilter, addLevel, removeLevel } = useSpellSearch();
+    const {
+        classFilter,
+        addClass,
+        removeClass,
+        levelFilter,
+        addLevel,
+        removeLevel,
+    } = useSpellSearch();
 
-    const isClassSelected = (className: string) => classFilter.has(className);
-    const isLevelSelected = (level: number) => levelFilter.has(level);
+    const isClassSelected = useCallback(
+        (className: string) => classFilter.has(className),
+        [classFilter]
+    );
+    const isLevelSelected = useCallback(
+        (level: number) => levelFilter.has(level),
+        [levelFilter]
+    );
 
     const toggleClass = (className: string) => () => {
         if (isClassSelected(className)) {

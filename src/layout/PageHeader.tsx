@@ -34,12 +34,14 @@ interface PageHeaderActionProp {
     icon?: React.ElementType;
     label: string;
     onClick: () => void;
+    color?: any;
 }
 
-PageHeader.Action = ({ icon, label, onClick }: PageHeaderActionProp) => (
+PageHeader.Action = ({ icon, label, onClick, color }: PageHeaderActionProp) => (
     <ActionButton onClick={onClick}>
         {icon && (
             <StyledOcticon
+                color={color}
                 icon={SearchIcon}
                 size={24}
                 mr={1}
