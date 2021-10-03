@@ -32,7 +32,7 @@ PageHeader.Title = ({ icon, title }: PageHeaderTitleProps) => (
 interface PageHeaderActionProp {
     icon?: React.ElementType;
     label: string;
-    onClick: () => void;
+    onClick?: () => void;
     color?: any;
 }
 

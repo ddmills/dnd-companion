@@ -59,7 +59,7 @@ export const SpellPage = () => {
                     mb={4}
                 >
                     {notFound ? (
-                        <Flash variant="warning">
+                        <Flash variant="danger">
                             <StyledOcticon icon={AlertIcon} />
                             <Text fontWeight={400}>Spell not found</Text>
                         </Flash>

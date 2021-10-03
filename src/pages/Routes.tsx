@@ -5,6 +5,7 @@ import { HomePage } from './home/HomePage';
 import { SpellbookListPage } from './spellbooks/SpellbookListPage';
 import { SpellPage } from './spells/SpellPage';
 import { SpellListPage } from './spells/SpellListPage';
+import { SpellbookPage } from './spellbooks/SpellbookPage';
 
 export const Routes = () => (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
@@ -24,6 +25,12 @@ export const Routes = () => (
                 </Route>
                 <Route path="/spellbooks">
                     <SpellbookListPage />
+                </Route>
+                <Route path="/spellbook/:spellbookId/add">
+                    <SpellListPage />
+                </Route>
+                <Route path="/spellbook/:spellbookId">
+                    <SpellbookPage />
                 </Route>
                 <Route>
                     <HomePage />

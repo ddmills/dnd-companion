@@ -8,9 +8,11 @@ import { InfiniteSpellList } from './InfiniteSpellList';
 import { Drawer } from '../../components/Drawer';
 import { SpellsListFilter } from './SpellsListFilter';
 import { useSpellSearch } from '../../contexts/SpellSearchContext';
+import { useSpellbook } from '../../contexts/SpellbooksContext';
 
 export const SpellListPage = () => {
     const { data, error, isLoading } = useGetSpells();
+    const spellbook = useSpellbook();
     const filter = useSpellSearch();
     const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
     const spells = filter.apply(data).sort((s1, s2) => s1.level - s2.level);
@@ -19,6 +21,15 @@ export const SpellListPage = () => {
     useEffect(() => {
         error && console.error(error);
     }, [error]);
+
+    useEffect(() => {
+        if (spellbook) {
+            filter.setClassFilter(spellbook.classes);
+        } else {
+            filter.clear();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [spellbook]);
 
     const showFilter = useCallback(() => {
         setIsFilterDrawerOpen(true);

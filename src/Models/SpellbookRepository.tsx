@@ -1,10 +1,28 @@
+import { Spell } from './Spell';
 import { Spellbook } from './Spellbook';
+
+const mapSpell = (spell: any): Spell => ({
+    castingTime: spell.castingTime,
+    classes: spell.classes,
+    components: spell.components,
+    concentration: spell.concentration,
+    desc: spell.desc,
+    duration: spell.duration,
+    level: spell.level,
+    higherLevelDesc: spell.higherLevelDesc,
+    material: spell.material,
+    name: spell.name,
+    ritual: spell.ritual,
+    school: spell.school,
+    range: spell.range,
+    uriSafeName: spell.uriSafeName,
+});
 
 const mapDataToSpellbook = (data: any): Spellbook => ({
     spellbookId: data.spellbookId,
     name: data.name,
     classes: data.classes || data.playerClasses || [],
-    spellNames: [],
+    spells: data.spells?.map((spellData: any) => mapSpell(spellData)) || [],
 });
 
 export const saveSpellbookToLocalStorage = (book: Spellbook) => {

@@ -12,6 +12,7 @@ import {
     removeSpellbookFromLocalStorage,
     saveSpellbookToLocalStorage,
 } from '../models/SpellbookRepository';
+import { useParams } from 'react-router';
 
 interface SpellbooksState {
     spellbooks: Spellbook[];
@@ -37,10 +38,6 @@ export const SpellbooksProvider = ({ children }: SpellbooksProviderProps) => {
 
         setSpellbooks(books);
     }, []);
-
-    useEffect(() => {
-        console.log('SPELLBOOKS DELTA');
-    }, [spellbooks]);
 
     const saveSpellbook = useCallback(
         (spellbook: Spellbook) => {
@@ -109,4 +106,21 @@ export const useSpellbooks = () => {
     }
 
     return context;
+};
+
+interface SpellbookIdParam {
+    spellbookId?: string;
+}
+
+export const useSpellbook = (): Spellbook | void => {
+    const { spellbookId } = useParams<SpellbookIdParam>();
+    const { getSpellbookById } = useSpellbooks();
+
+    if (spellbookId) {
+        const spellbook = getSpellbookById(spellbookId);
+
+        return spellbook;
+    }
+
+    return undefined;
 };

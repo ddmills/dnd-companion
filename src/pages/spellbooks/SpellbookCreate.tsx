@@ -58,7 +58,7 @@ export const SpellbookCreate = ({
             spellbookId: generateId(),
             name: name.trim(),
             classes: [...selectedClasses],
-            spellNames: [],
+            spells: [],
         });
         onDismiss();
     }, [name, selectedClasses, saveSpellbook, onDismiss]);

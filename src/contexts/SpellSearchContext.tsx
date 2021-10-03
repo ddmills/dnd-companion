@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useContext, useState } from 'react';
+import {
+    createContext,
+    ReactNode,
+    useCallback,
+    useContext,
+    useState,
+} from 'react';
 import { Spell } from '../models/Spell';
 
 interface SpellSearchState {
@@ -20,6 +26,10 @@ interface SpellSearchState {
     hasFilter: () => boolean;
 
     apply: (spells?: Spell[]) => Spell[];
+
+    setClassFilter: (playerClasses: string[]) => void;
+
+    clear: () => void;
 }
 
 const SpellSearchContext = createContext<SpellSearchState | undefined>(
@@ -32,32 +42,52 @@ interface SpellSearchProviderProps {
 
 export const SpellSearchProvider = ({ children }: SpellSearchProviderProps) => {
     const [textFilter, setTextFilter] = useState('');
-    const [classFilter, setClassFilter] = useState(new Set<string>());
+    const [classFilter, setClassFilterState] = useState(new Set<string>());
     const [levelFilter, setLevelFilter] = useState(new Set<number>());
+
+    const clear = useCallback(() => {
+        setTextFilter('');
+        setClassFilterState(new Set());
+        setLevelFilter(new Set());
+    }, []);
 
     const addClass = (playerClass: string) => {
         const newClassFilter = new Set(classFilter);
         newClassFilter.add(playerClass);
-        setClassFilter(newClassFilter);
+        setClassFilterState(newClassFilter);
     };
 
-    const removeClass = (playerClass: string) => {
-        const newClassFilter = new Set(classFilter);
-        newClassFilter.delete(playerClass);
-        setClassFilter(newClassFilter);
-    };
+    const setClassFilter = useCallback((playerClasses: string[]) => {
+        const newClassFilter = new Set(playerClasses);
+        setClassFilterState(newClassFilter);
+    }, []);
 
-    const addLevel = (level: number) => {
-        const newLevelFilter = new Set(levelFilter);
-        newLevelFilter.add(level);
-        setLevelFilter(newLevelFilter);
-    };
+    const removeClass = useCallback(
+        (playerClass: string) => {
+            const newClassFilter = new Set(classFilter);
+            newClassFilter.delete(playerClass);
+            setClassFilterState(newClassFilter);
+        },
+        [classFilter]
+    );
 
-    const removeLevel = (level: number) => {
-        const newLevelFilter = new Set(levelFilter);
-        newLevelFilter.delete(level);
-        setLevelFilter(newLevelFilter);
-    };
+    const addLevel = useCallback(
+        (level: number) => {
+            const newLevelFilter = new Set(levelFilter);
+            newLevelFilter.add(level);
+            setLevelFilter(newLevelFilter);
+        },
+        [levelFilter]
+    );
+
+    const removeLevel = useCallback(
+        (level: number) => {
+            const newLevelFilter = new Set(levelFilter);
+            newLevelFilter.delete(level);
+            setLevelFilter(newLevelFilter);
+        },
+        [levelFilter]
+    );
 
     const hasClassFilter = () => classFilter.size > 0;
     const hasLevelFilter = () => levelFilter.size > 0;
@@ -107,6 +137,8 @@ export const SpellSearchProvider = ({ children }: SpellSearchProviderProps) => {
         hasTextFilter,
         hasFilter,
         apply,
+        setClassFilter,
+        clear,
     };
 
     return (

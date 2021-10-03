@@ -5,6 +5,7 @@ import { PageHeader } from '../../layout/PageHeader';
 import { useSpellbooks } from '../../contexts/SpellbooksContext';
 import { SpellbookCreate } from './SpellbookCreate';
 import { List, ListItem } from '../../components/spells/list/List';
+import { Link } from 'react-router-dom';
 
 export const SpellbookListPage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,7 +25,12 @@ export const SpellbookListPage = () => {
                 <List>
                     {spellbooks.map((book) => (
                         <ListItem key={book.spellbookId}>
-                            <Box p={3}>
+                            <Box
+                                p={3}
+                                as={Link}
+                                to={`/spellbook/${book.spellbookId}`}
+                                display="block"
+                            >
                                 <Box
                                     display="flex"
                                     justifyContent="space-between"
@@ -33,7 +39,7 @@ export const SpellbookListPage = () => {
                                         {book.name}
                                     </Text>
                                     <Text fontSize={1} color="#6e7b8a">
-                                        {book.spellNames.length} spells
+                                        {book.spells.length} spells
                                     </Text>
                                 </Box>
                                 <Box>
