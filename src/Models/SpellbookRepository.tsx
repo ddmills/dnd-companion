@@ -3,7 +3,8 @@ import { Spellbook } from './Spellbook';
 const mapDataToSpellbook = (data: any): Spellbook => ({
     spellbookId: data.spellbookId,
     name: data.name,
-    playerClasses: data.playerClasses,
+    classes: data.classes || data.playerClasses || [],
+    spellNames: [],
 });
 
 export const saveSpellbookToLocalStorage = (book: Spellbook) => {

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { PageHeader } from '../../layout/PageHeader';
 import { useSpellbooks } from '../../contexts/SpellbooksContext';
 import { SpellbookCreate } from './SpellbookCreate';
+import { List, ListItem } from '../../components/spells/list/List';
 
 export const SpellbookListPage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,9 +21,30 @@ export const SpellbookListPage = () => {
                 />
             </PageHeader>
             <Box display="flex" flexDirection="column">
-                {spellbooks.map((book) => (
-                    <Text key={book.spellbookId}>{book.name}</Text>
-                ))}
+                <List>
+                    {spellbooks.map((book) => (
+                        <ListItem key={book.spellbookId}>
+                            <Box p={3}>
+                                <Box
+                                    display="flex"
+                                    justifyContent="space-between"
+                                >
+                                    <Text fontSize={2} fontWeight={600}>
+                                        {book.name}
+                                    </Text>
+                                    <Text fontSize={1} color="#6e7b8a">
+                                        {book.spellNames.length} spells
+                                    </Text>
+                                </Box>
+                                <Box>
+                                    <Text fontSize={1} color="#6e7b8a">
+                                        {book.classes.join(', ')}
+                                    </Text>
+                                </Box>
+                            </Box>
+                        </ListItem>
+                    ))}
+                </List>
             </Box>
             <SpellbookCreate
                 isOpen={isModalOpen}
