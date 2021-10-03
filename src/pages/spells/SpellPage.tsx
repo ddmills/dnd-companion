@@ -26,6 +26,10 @@ const renderPart = (label?: string, value?: string) => {
     );
 };
 
+const isSpellMinorHeading = (text: string) : boolean => {
+    return text.length < 24 && !text.startsWith('-') && text.endsWith('.');
+};
+
 export const SpellPage = () => {
     const { spellName: encodedSpellName } = useParams<SpellPageParams>();
     const spellName = decodeURIComponent(encodedSpellName);
@@ -86,11 +90,11 @@ export const SpellPage = () => {
                             <Box
                                 display="flex"
                                 flexDirection="column"
-                                mt={4}
-                                mb={4}
+                                mt={3}
+                                mb={3}
                             >
                                 {data?.desc?.map((desc, idx) => (
-                                    <Text mb={2} key={idx}>
+                                    <Text mb={2} key={idx} fontWeight={isSpellMinorHeading(desc) ? 700 : 400} >
                                         {desc}
                                     </Text>
                                 ))}
