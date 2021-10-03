@@ -4,7 +4,7 @@ import { AppHeader } from '../layout/AppHeader';
 import { HomePage } from './home/HomePage';
 import { SpellbooksPage } from './spellbooks/SpellbooksPage';
 import { SpellPage } from './spells/SpellPage';
-import { SpellsPage } from './spells/SpellsPage';
+import { SpellsListPage } from './spells/SpellsListPage';
 
 export const Routes = () => (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
@@ -17,7 +17,7 @@ export const Routes = () => (
         >
             <Switch>
                 <Route path="/spells">
-                    <SpellsPage />
+                    <SpellsListPage />
                 </Route>
                 <Route path="/spell/:spellName">
                     <SpellPage />

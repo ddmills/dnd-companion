@@ -1,4 +1,4 @@
-import { Box, TextInput, useTheme } from '@primer/components';
+import { Box, useTheme } from '@primer/components';
 import { PageHeader } from '../../layout/PageHeader';
 import { useCallback, useEffect, useState } from 'react';
 import { PageLoading } from '../../layout/PageLoading';
@@ -9,7 +9,7 @@ import { Drawer } from '../../components/Drawer';
 import { SpellsListFilter } from './SpellsListFilter';
 import { useSpellSearch } from './SpellSearchContext';
 
-export const SpellsPage = () => {
+export const SpellsListPage = () => {
     const { data, error, isLoading } = useGetSpells();
     const filter = useSpellSearch();
     const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
@@ -19,13 +19,6 @@ export const SpellsPage = () => {
     useEffect(() => {
         error && console.error(error);
     }, [error]);
-
-    const handleTextFilterChange = useCallback(
-        (e: any) => {
-            filter.setTextFilter(e.target.value);
-        },
-        [filter]
-    );
 
     const showFilter = useCallback(() => {
         setIsFilterDrawerOpen(true);
@@ -60,15 +53,6 @@ export const SpellsPage = () => {
                     <PageLoading />
                 ) : (
                     <>
-                        <TextInput
-                            sx={{ m: 4 }}
-                            icon={SearchIcon}
-                            aria-label="Spell name"
-                            name="spell-name"
-                            placeholder="Search spells"
-                            value={filter.textFilter}
-                            onChange={handleTextFilterChange}
-                        />
                         <InfiniteSpellList spells={spells} />
                         <Drawer
                             isOpen={isFilterDrawerOpen}

@@ -3,13 +3,15 @@ import {
     Heading,
     StyledOcticon,
     Text,
+    TextInput,
     themeGet,
 } from '@primer/components';
-import { XIcon } from '@primer/octicons-react';
+import { SearchIcon, XIcon } from '@primer/octicons-react';
 import { useCallback } from 'react';
 import styled from 'styled-components';
 import { UnstyledButton } from '../../components/buttons/UnstyledButton';
 import { useSpellSearch } from './SpellSearchContext';
+import { levelFriendly } from '../../util/LevelStringFriendly';
 
 const capitalizeFirstLetter = (str: string): string =>
     str.charAt(0).toUpperCase() + str.slice(1);
@@ -33,7 +35,7 @@ const ClassGrid = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-column-gap: 8px;
-    height: 260px;
+    height: 240px;
     grid-row-gap: 8px;
     margin-bottom: 16px;
 `;
@@ -42,7 +44,7 @@ const SpellLevelGrid = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-column-gap: 8px;
-    height: 200px;
+    height: 180px;
     grid-row-gap: 8px;
 `;
 
@@ -118,6 +120,8 @@ export const SpellsListFilter = ({ handleClose }: SpellsListFilterProps) => {
         levelFilter,
         addLevel,
         removeLevel,
+        textFilter,
+        setTextFilter,
     } = useSpellSearch();
 
     const isClassSelected = useCallback(
@@ -127,6 +131,13 @@ export const SpellsListFilter = ({ handleClose }: SpellsListFilterProps) => {
     const isLevelSelected = useCallback(
         (level: number) => levelFilter.has(level),
         [levelFilter]
+    );
+
+    const handleTextFilterChange = useCallback(
+        (e: any) => {
+            setTextFilter(e.target.value);
+        },
+        [setTextFilter]
     );
 
     const toggleClass = (className: string) => () => {
@@ -154,6 +165,17 @@ export const SpellsListFilter = ({ handleClose }: SpellsListFilterProps) => {
                 </CloseButton>
             </TitleBar>
             <Box p={3}>
+                <Box mb={3}>
+                    <TextInput
+                        icon={SearchIcon}
+                        aria-label="Spell name"
+                        name="spell-name"
+                        placeholder="Search spells"
+                        value={textFilter}
+                        onChange={handleTextFilterChange}
+                        width="100%"
+                    />
+                </Box>
                 <Text pb={2} display="block">
                     Class
                 </Text>
@@ -178,7 +200,7 @@ export const SpellsListFilter = ({ handleClose }: SpellsListFilterProps) => {
                             isSelected={isLevelSelected(spellLevel)}
                             onClick={toggleLevel(spellLevel)}
                         >
-                            {spellLevel.toString()}
+                            {levelFriendly(spellLevel)}
                         </SpellLevelCell>
                     ))}
                 </SpellLevelGrid>
