@@ -1,5 +1,4 @@
 import { Box, Heading, StyledOcticon, themeGet } from '@primer/components';
-import { SearchIcon } from '@primer/octicons-react';
 import styled from 'styled-components';
 import { UnstyledButton } from '../components/buttons/UnstyledButton';
 
@@ -42,9 +41,8 @@ PageHeader.Action = ({ icon, label, onClick, color }: PageHeaderActionProp) => (
         {icon && (
             <StyledOcticon
                 color={color}
-                icon={SearchIcon}
+                icon={icon}
                 size={24}
-                mr={1}
                 aria-label={label}
             />
         )}

@@ -10,11 +10,12 @@ import { SearchIcon, XIcon } from '@primer/octicons-react';
 import { useCallback } from 'react';
 import styled from 'styled-components';
 import { UnstyledButton } from '../../components/buttons/UnstyledButton';
-import { useSpellSearch } from './SpellSearchContext';
-import { levelFriendly } from '../../util/LevelStringFriendly';
-
-const capitalizeFirstLetter = (str: string): string =>
-    str.charAt(0).toUpperCase() + str.slice(1);
+import { useSpellSearch } from '../../contexts/SpellSearchContext';
+import {
+    levelFriendly,
+    capitalizeFirstLetter,
+} from '../../util/LevelStringFriendly';
+import { playerClasses } from '../../data/PlayerClasses';
 
 const TitleBar = styled(Heading)`
     display: flex;
@@ -95,24 +96,13 @@ const SpellLevelCell = styled.button<ClassCellProps>`
     border-radius: 0.25rem;
 `;
 
-const playerClasses = [
-    'bard',
-    'cleric',
-    'druid',
-    'paladin',
-    'ranger',
-    'sorcerer',
-    'warlock',
-    'wizard',
-];
-
 const spellLevels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 interface SpellsListFilterProps {
-    handleClose: () => void;
+    onDismiss: () => void;
 }
 
-export const SpellsListFilter = ({ handleClose }: SpellsListFilterProps) => {
+export const SpellsListFilter = ({ onDismiss }: SpellsListFilterProps) => {
     const {
         classFilter,
         addClass,
@@ -159,8 +149,11 @@ export const SpellsListFilter = ({ handleClose }: SpellsListFilterProps) => {
     return (
         <Box overflow="auto" height="100%">
             <TitleBar p={2} as="h3" fontSize={2}>
-                <Text p={2}>Filter</Text>
-                <CloseButton onClick={handleClose}>
+                <Text p={2}>
+                    <StyledOcticon icon={SearchIcon} size={18} mr={1} />
+                    Filter
+                </Text>
+                <CloseButton onClick={onDismiss}>
                     <StyledOcticon icon={XIcon} size={32} />
                 </CloseButton>
             </TitleBar>
@@ -176,7 +169,7 @@ export const SpellsListFilter = ({ handleClose }: SpellsListFilterProps) => {
                         width="100%"
                     />
                 </Box>
-                <Text pb={2} display="block">
+                <Text pb={2} display="block" fontWeight="600">
                     Class
                 </Text>
                 <ClassGrid>
@@ -190,7 +183,7 @@ export const SpellsListFilter = ({ handleClose }: SpellsListFilterProps) => {
                         </ClassCell>
                     ))}
                 </ClassGrid>
-                <Text pb={2} display="block">
+                <Text pb={2} display="block" fontWeight="600">
                     Spell level
                 </Text>
                 <SpellLevelGrid>

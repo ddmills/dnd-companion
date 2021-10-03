@@ -3,13 +3,13 @@ import { PageHeader } from '../../layout/PageHeader';
 import { useCallback, useEffect, useState } from 'react';
 import { PageLoading } from '../../layout/PageLoading';
 import { RepoIcon, SearchIcon } from '@primer/octicons-react';
-import { useGetSpells } from '../../gql/SpellRepository';
+import { useGetSpells } from '../../models/SpellRepository';
 import { InfiniteSpellList } from './InfiniteSpellList';
 import { Drawer } from '../../components/Drawer';
 import { SpellsListFilter } from './SpellsListFilter';
-import { useSpellSearch } from './SpellSearchContext';
+import { useSpellSearch } from '../../contexts/SpellSearchContext';
 
-export const SpellsListPage = () => {
+export const SpellListPage = () => {
     const { data, error, isLoading } = useGetSpells();
     const filter = useSpellSearch();
     const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
@@ -56,9 +56,9 @@ export const SpellsListPage = () => {
                         <InfiniteSpellList spells={spells} />
                         <Drawer
                             isOpen={isFilterDrawerOpen}
-                            handleClose={hideDrawer}
+                            onDismiss={hideDrawer}
                         >
-                            <SpellsListFilter handleClose={hideDrawer} />
+                            <SpellsListFilter onDismiss={hideDrawer} />
                         </Drawer>
                     </>
                 )}

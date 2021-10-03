@@ -2,9 +2,9 @@ import { Box } from '@primer/components';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { AppHeader } from '../layout/AppHeader';
 import { HomePage } from './home/HomePage';
-import { SpellbooksPage } from './spellbooks/SpellbooksPage';
+import { SpellbookListPage } from './spellbooks/SpellbookListPage';
 import { SpellPage } from './spells/SpellPage';
-import { SpellsListPage } from './spells/SpellsListPage';
+import { SpellListPage } from './spells/SpellListPage';
 
 export const Routes = () => (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
@@ -17,13 +17,13 @@ export const Routes = () => (
         >
             <Switch>
                 <Route path="/spells">
-                    <SpellsListPage />
+                    <SpellListPage />
                 </Route>
                 <Route path="/spell/:spellName">
                     <SpellPage />
                 </Route>
                 <Route path="/spellbooks">
-                    <SpellbooksPage />
+                    <SpellbookListPage />
                 </Route>
                 <Route>
                     <HomePage />

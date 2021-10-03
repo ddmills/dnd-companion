@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FixedSizeList } from 'react-window';
 import styled from 'styled-components';
-import { Spell } from '../../Models/Spell';
+import { Spell } from '../../models/Spell';
 import { useResizeDetector } from 'react-resize-detector';
 import {
     getSpellSchoolColor,

@@ -4,7 +4,7 @@ import { PageHeader } from '../../layout/PageHeader';
 import { useEffect } from 'react';
 import { PageLoading } from '../../layout/PageLoading';
 import { useParams } from 'react-router';
-import { useGetSpellByName } from '../../gql/SpellRepository';
+import { useGetSpellByName } from '../../models/SpellRepository';
 import { getSpellSchoolColor } from '../../util/LevelStringFriendly';
 
 interface SpellPageParams {
@@ -26,7 +26,7 @@ const renderPart = (label?: string, value?: string) => {
     );
 };
 
-const isSpellMinorHeading = (text: string) : boolean => {
+const isSpellMinorHeading = (text: string): boolean => {
     return text.length < 24 && !text.startsWith('-') && text.endsWith('.');
 };
 
@@ -94,7 +94,15 @@ export const SpellPage = () => {
                                 mb={3}
                             >
                                 {data?.desc?.map((desc, idx) => (
-                                    <Text mb={2} key={idx} fontWeight={isSpellMinorHeading(desc) ? 700 : 400} >
+                                    <Text
+                                        mb={2}
+                                        key={idx}
+                                        fontWeight={
+                                            isSpellMinorHeading(desc)
+                                                ? 700
+                                                : 400
+                                        }
+                                    >
                                         {desc}
                                     </Text>
                                 ))}

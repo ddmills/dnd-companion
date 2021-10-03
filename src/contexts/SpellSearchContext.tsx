@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
-import { Spell } from '../../Models/Spell';
+import { Spell } from '../models/Spell';
 
 interface SpellSearchState {
     textFilter: string;
@@ -26,13 +26,11 @@ const SpellSearchContext = createContext<SpellSearchState | undefined>(
     undefined
 );
 
-interface SpellSearchContextProviderProps {
+interface SpellSearchProviderProps {
     children?: ReactNode;
 }
 
-export const SpellSearchProvider = ({
-    children,
-}: SpellSearchContextProviderProps) => {
+export const SpellSearchProvider = ({ children }: SpellSearchProviderProps) => {
     const [textFilter, setTextFilter] = useState('');
     const [classFilter, setClassFilter] = useState(new Set<string>());
     const [levelFilter, setLevelFilter] = useState(new Set<number>());
@@ -123,7 +121,7 @@ export const useSpellSearch = () => {
 
     if (context === undefined) {
         throw new Error(
-            'useSpellSearch must be used within a SpellSearchContextProvider'
+            'useSpellSearch must be used within a SpellSearchProvider'
         );
     }
 

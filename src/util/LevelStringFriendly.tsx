@@ -31,3 +31,6 @@ const colorMap: { [key: string]: string } = {
 
 export const getSpellSchoolColor = (school?: string): string =>
     (school && colorMap[school?.toLowerCase()]) ?? 'inherit';
+
+export const capitalizeFirstLetter = (str: string): string =>
+    str.charAt(0).toUpperCase() + str.slice(1);

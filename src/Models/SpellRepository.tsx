@@ -4,7 +4,7 @@ import {
     useGetSpellByNameQuery,
     useGetSpellsQuery,
 } from '../generated/graphql';
-import { Spell } from '../Models/Spell';
+import { Spell } from './Spell';
 
 interface QueryResult<Type> {
     error?: ApolloError;
