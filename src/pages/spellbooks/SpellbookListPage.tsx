@@ -6,6 +6,12 @@ import { useSpellbooks } from '../../contexts/SpellbooksContext';
 import { SpellbookCreate } from './SpellbookCreate';
 import { List, ListItem } from '../../components/spells/list/List';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+
+const SpellbookRow = styled(Box)`
+    text-decoration: none;
+    color: inherit;
+`;
 
 export const SpellbookListPage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,7 +31,7 @@ export const SpellbookListPage = () => {
                 <List>
                     {spellbooks.map((book) => (
                         <ListItem key={book.spellbookId}>
-                            <Box
+                            <SpellbookRow
                                 p={3}
                                 as={Link}
                                 to={`/spellbook/${book.spellbookId}`}
@@ -47,7 +53,7 @@ export const SpellbookListPage = () => {
                                         {book.classes.join(', ')}
                                     </Text>
                                 </Box>
-                            </Box>
+                            </SpellbookRow>
                         </ListItem>
                     ))}
                 </List>

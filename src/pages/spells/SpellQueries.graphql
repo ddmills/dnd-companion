@@ -3,17 +3,25 @@ query getSpells {
         name
         level
         concentration
-        ritual
-        components
         desc
         attack_type
         material
         casting_time
-        school {
-            name
-        }
+        duration
         classes {
             name
+        }
+        school {
+            name
+            desc
+        }
+        components
+        ritual
+        higher_level
+        range
+        area_of_effect {
+            type
+            size
         }
     }
 }

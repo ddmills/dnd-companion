@@ -1,14 +1,11 @@
 import { Box, Flash, StyledOcticon, Text } from '@primer/components';
-import {
-    AlertIcon,
-    PlusIcon,
-    RepoIcon,
-} from '@primer/octicons-react';
+import { AlertIcon, PlusIcon, RepoIcon } from '@primer/octicons-react';
 import { useCallback } from 'react';
 import { useHistory, useParams } from 'react-router';
-import { List } from '../../components/spells/list/List';
+import { List, ListItem } from '../../components/spells/list/List';
 import { useSpellbooks } from '../../contexts/SpellbooksContext';
 import { PageHeader } from '../../layout/PageHeader';
+import { SpellRow } from '../spells/SpellRow';
 
 interface SpellbookPageParams {
     spellbookId: string;
@@ -40,13 +37,15 @@ export const SpellbookPage = () => {
             <Box
                 display="flex"
                 flexDirection="column"
-                mt={3}
-                ml={4}
-                mr={4}
-                mb={4}
+                flex="1 1 auto"
+                overflow="auto"
             >
                 {spellbook ? (
-                    <List></List>
+                    <Box>
+                        {spellbook.spells.map((spell) => (
+                            <SpellRow key={spell.name} spell={spell} />
+                        ))}
+                    </Box>
                 ) : (
                     <Flash variant="danger">
                         <StyledOcticon icon={AlertIcon} />

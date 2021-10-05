@@ -1,27 +1,9 @@
-import { Box, Text, themeGet } from '@primer/components';
 import { useRef } from 'react';
-import { Link } from 'react-router-dom';
 import { FixedSizeList } from 'react-window';
 import styled from 'styled-components';
 import { Spell } from '../../models/Spell';
 import { useResizeDetector } from 'react-resize-detector';
-import {
-    getSpellSchoolColor,
-    levelFriendly,
-} from '../../util/LevelStringFriendly';
-
-const Card = styled(Box)`
-    display: block;
-    color: inherit;
-    text-decoration: inherit;
-
-    border-bottom: 1px solid ${themeGet('colors.border.subtle')};
-
-    &:active,
-    &:hover {
-        background-color: ${themeGet('border.muted')};
-    }
-`;
+import { SpellRow } from './SpellRow';
 
 interface RowProps {
     index: number;
@@ -31,51 +13,10 @@ interface RowProps {
 
 const Row = ({ index, style, data }: RowProps) => {
     const spell = data[index];
-    const mods = [];
-
-    if (spell.ritual) {
-        mods.push('rit');
-    }
-
-    if (spell.concentration) {
-        mods.push('con');
-    }
 
     return (
         <div style={style}>
-            <Card
-                p={4}
-                pt={3}
-                pb={3}
-                display="block"
-                as={Link}
-                to={`/spell/${spell.uriSafeName}`}
-            >
-                <Box display="flex" justifyContent="space-between">
-                    <Text fontSize={2} fontWeight={600}>
-                        {spell.name}
-                    </Text>
-                    {mods.length > 0 && (
-                        <Text fontSize={1}>({mods.join(', ')})</Text>
-                    )}
-                </Box>
-                <Box>
-                    <Text fontSize={1}>
-                        {levelFriendly(spell.level)} level
-                        <Text color={getSpellSchoolColor(spell.school)}>
-                            {' ' + spell.school.toLowerCase()}
-                        </Text>
-                        <Text color="#6e7b8a">
-                            {' [' + spell.components.join(', ')}]
-                        </Text>
-                    </Text>
-                </Box>
-                <Box>
-                    <Text fontSize={1} color="#6e7b8a">
-                        {spell.classes.join(', ')}
-                    </Text>
-                </Box>
-            </Card>
+            <SpellRow spell={spell} />
         </div>
     );
 };
@@ -99,7 +40,7 @@ export const InfiniteSpellList = ({ spells }: InfiniteSpellListProps) => {
                 height={height ?? 300}
                 itemCount={spells.length}
                 itemData={spells}
-                itemSize={105}
+                itemSize={81}
             >
                 {Row}
             </FixedSizeList>
