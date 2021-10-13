@@ -2,7 +2,6 @@ import { Box, Flash, StyledOcticon, Text } from '@primer/components';
 import { AlertIcon, PlusIcon, RepoIcon } from '@primer/octicons-react';
 import { useCallback } from 'react';
 import { useHistory, useParams } from 'react-router';
-import { List, ListItem } from '../../components/spells/list/List';
 import { useSpellbooks } from '../../contexts/SpellbooksContext';
 import { PageHeader } from '../../layout/PageHeader';
 import { SpellRow } from '../spells/SpellRow';

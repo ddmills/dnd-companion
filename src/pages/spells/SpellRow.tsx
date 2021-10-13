@@ -51,7 +51,7 @@ export const SpellRow = ({ spell }: SpellRowProps) => {
         >
             <Card
                 as={Link}
-                to={`/spell/${spell.uriSafeName}`}
+                to={`/spell/${spell.slug}`}
                 pl={4}
                 pt={3}
                 pb={3}

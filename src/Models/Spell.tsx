@@ -1,16 +1,17 @@
 export type Spell = {
-    castingTime?: string;
+    name: string;
+    slug: string;
+    level: number;
+    description: string[];
     classes: string[];
     components: string[];
     concentration: boolean;
-    desc: string[];
-    duration?: string;
-    level: number;
-    higherLevelDesc?: string[];
-    material?: string;
-    name: string;
     ritual: boolean;
     school: string;
+    higherLevelDesc?: string[];
+    duration?: string;
+    material?: string;
     range?: string;
-    uriSafeName: string;
+    castingTime?: string;
+    attackType?: string;
 };

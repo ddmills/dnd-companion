@@ -1,5 +1,5 @@
 import { Box, themeGet, StyledOcticon } from '@primer/components';
-import { ChevronLeftIcon, RepoIcon } from '@primer/octicons-react';
+import { TriangleLeftIcon, RepoIcon } from '@primer/octicons-react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { UnstyledButton } from '../components/buttons/UnstyledButton';
 import styled from 'styled-components';
@@ -12,7 +12,7 @@ const LogoLink = styled(Link)`
 
 const BackBtn = styled(UnstyledButton)`
     position: absolute;
-    left: 16px;
+    left: 8px;
     top: 8px;
     color: ${themeGet('colors.fg.default')};
     display: inline-flex;
@@ -39,7 +39,7 @@ export const AppHeader = () => {
         >
             {showBtn && (
                 <BackBtn onClick={() => history.goBack()}>
-                    <StyledOcticon icon={ChevronLeftIcon} size={17} />
+                    <StyledOcticon icon={TriangleLeftIcon} size={17} />
                     <span>Back</span>
                 </BackBtn>
             )}

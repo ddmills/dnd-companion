@@ -7,11 +7,7 @@ import {
     useEffect,
     useState,
 } from 'react';
-import {
-    getSpellbooksFromLocalStorage,
-    removeSpellbookFromLocalStorage,
-    saveSpellbookToLocalStorage,
-} from '../models/SpellbookRepository';
+import * as repository from '../models/SpellbookRepository';
 import { useParams } from 'react-router';
 
 interface SpellbooksState {
@@ -32,7 +28,7 @@ export const SpellbooksProvider = ({ children }: SpellbooksProviderProps) => {
     const [spellbooks, setSpellbooks] = useState<Spellbook[]>([]);
 
     useEffect(() => {
-        const books = getSpellbooksFromLocalStorage();
+        const books = repository.getSpellbooks();
 
         console.log('LOAD SPELLBOOKS');
 
@@ -41,7 +37,7 @@ export const SpellbooksProvider = ({ children }: SpellbooksProviderProps) => {
 
     const saveSpellbook = useCallback(
         (spellbook: Spellbook) => {
-            saveSpellbookToLocalStorage(spellbook);
+            repository.saveSpellbook(spellbook);
             const idx = spellbooks.findIndex(
                 (s) => s.spellbookId === spellbook.spellbookId
             );
@@ -60,7 +56,7 @@ export const SpellbooksProvider = ({ children }: SpellbooksProviderProps) => {
 
     const deleteSpellbook = useCallback(
         (spellbook: Spellbook) => {
-            removeSpellbookFromLocalStorage(spellbook);
+            repository.deleteSpellbook(spellbook);
             const idx = spellbooks.findIndex(
                 (s) => s.spellbookId === spellbook.spellbookId
             );

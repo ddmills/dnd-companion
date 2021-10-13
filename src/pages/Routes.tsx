@@ -20,7 +20,7 @@ export const Routes = () => (
                 <Route path="/spells">
                     <SpellListPage />
                 </Route>
-                <Route path="/spell/:spellName">
+                <Route path="/spell/:slug">
                     <SpellPage />
                 </Route>
                 <Route path="/spellbooks">

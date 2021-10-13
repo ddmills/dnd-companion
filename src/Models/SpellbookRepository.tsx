@@ -1,43 +1,39 @@
+import { getSpell } from '../data/Spells';
 import { Spell } from './Spell';
 import { Spellbook } from './Spellbook';
-
-const mapSpell = (spell: any): Spell => ({
-    castingTime: spell.castingTime,
-    classes: spell.classes,
-    components: spell.components,
-    concentration: spell.concentration,
-    desc: spell.desc,
-    duration: spell.duration,
-    level: spell.level,
-    higherLevelDesc: spell.higherLevelDesc,
-    material: spell.material,
-    name: spell.name,
-    ritual: spell.ritual,
-    school: spell.school,
-    range: spell.range,
-    uriSafeName: spell.uriSafeName,
-});
 
 const mapDataToSpellbook = (data: any): Spellbook => ({
     spellbookId: data.spellbookId,
     name: data.name,
-    classes: data.classes || data.playerClasses || [],
-    spells: data.spells?.map((spellData: any) => mapSpell(spellData)) || [],
+    classes: data.classes,
+    spells: data.spells?.map((slug: string) => getSpell(slug)) || [],
 });
 
-export const saveSpellbookToLocalStorage = (book: Spellbook) => {
+export const saveSpellbook = (book: Spellbook) => {
     const key = `book-${book.spellbookId}`;
 
-    localStorage.setItem(key, JSON.stringify(book));
+    localStorage.setItem(
+        key,
+        JSON.stringify({
+            spellbookId: book.spellbookId,
+            name: book.name,
+            classes: book.classes,
+            spells: book.spells?.map((spell: Spell) => spell.slug) || [],
+        })
+    );
 };
 
-export const removeSpellbookFromLocalStorage = (book: Spellbook) => {
+export const deleteSpellbook = (book: Spellbook) => {
     const key = `book-${book.spellbookId}`;
 
     localStorage.removeItem(key);
 };
 
-export const getSpellbooksFromLocalStorage = (): Spellbook[] => {
+export const deleteAllSpellbooks = () => {
+    localStorage.clear();
+};
+
+export const getSpellbooks = (): Spellbook[] => {
     const books = [];
 
     for (let i = 0, len = localStorage.length; i < len; ++i) {
