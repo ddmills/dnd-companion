@@ -22,11 +22,11 @@ export const SpellListPage = () => {
     useEffect(() => {
         if (spellbook) {
             filter.setClassFilter(spellbook.classes);
-        } else {
+        } else if (!selectedSpell) {
             filter.clear();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [spellbook]);
+    }, [spellbook, selectedSpell]);
 
     const showFilter = useCallback(() => {
         setIsFilterDrawerOpen(true);
