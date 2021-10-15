@@ -9,6 +9,8 @@ import { Spell } from '../models/Spell';
 interface NavigationState {
     selectedSpell?: Spell;
     setSelectedSpell: (spell: Spell | undefined) => void;
+    scrollOffset?: number;
+    setScrollOffset: (scrollOffset: number) => void;
 }
 
 const NavigationContext = createContext<NavigationState | undefined>(undefined);
@@ -19,10 +21,13 @@ interface NavigationProviderProps {
 
 export const NavigationProvider = ({ children }: NavigationProviderProps) => {
     const [selectedSpell, setSelectedSpell] = useState<Spell>();
+    const [scrollOffset, setScrollOffset] = useState<number>(0);
 
     const state = {
         selectedSpell,
         setSelectedSpell,
+        scrollOffset,
+        setScrollOffset,
     };
 
     return (

@@ -1,9 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { FixedSizeList } from 'react-window';
 import styled from 'styled-components';
 import { Spell } from '../../models/Spell';
 import { useResizeDetector } from 'react-resize-detector';
 import { SpellRow } from './SpellRow';
+import { useNavigation } from '../../contexts/NavigationContext';
 
 interface RowProps {
     index: number;
@@ -34,21 +35,30 @@ export const InfiniteSpellList = ({ spells, selectedSpell }: InfiniteSpellListPr
     const containerRef = useRef() as React.MutableRefObject<HTMLInputElement>;
     const listRef = useRef() as React.MutableRefObject<FixedSizeList>;
     const { width, height } = useResizeDetector({ targetRef: containerRef });
+    const { scrollOffset, setScrollOffset } = useNavigation();
 
     useEffect(() => {
         if (selectedSpell) {
             const selectedIdx = spells.findIndex((s) => s.slug === selectedSpell.slug);
 
-            if (selectedIdx > 0) {
-                listRef.current.scrollToItem(selectedIdx, 'center');
+            if (selectedIdx > 0 && scrollOffset) {
+                listRef.current?.scrollTo(scrollOffset);
             }
         }
-    }, [selectedSpell, spells]);
+    }, [selectedSpell, scrollOffset, spells]);
+
+    const handleScroll = useCallback((e) => {
+        if (e.scrollOffset !== scrollOffset && e.scrollOffset > 0) {
+            setScrollOffset(e.scrollOffset);
+        }
+    }, [scrollOffset, setScrollOffset]);
 
     return (
         <SpellListContainer ref={containerRef}>
             <FixedSizeList
+                // @ts-ignore
                 ref={listRef}
+                onScroll={handleScroll}
                 width={width ?? 320}
                 height={height ?? 300}
                 itemCount={spells.length}
