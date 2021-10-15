@@ -4,6 +4,8 @@ import { PageHeader } from '../../layout/PageHeader';
 import { useParams } from 'react-router';
 import { getSpellSchoolColor } from '../../util/LevelStringFriendly';
 import { getSpell } from '../../data/Spells';
+import { useNavigation } from '../../contexts/NavigationContext';
+import { useEffect } from 'react';
 
 interface SpellPageParams {
     slug: string;
@@ -31,7 +33,12 @@ const isSpellMinorHeading = (text: string): boolean => {
 export const SpellPage = () => {
     const { slug } = useParams<SpellPageParams>();
     const spell = getSpell(slug);
+    const { setSelectedSpell } = useNavigation();
     const notFound = !spell;
+
+    useEffect(() => {
+        setSelectedSpell(spell);
+    }, [spell, setSelectedSpell]);
 
     return (
         <Box display="flex" flexDirection="column">

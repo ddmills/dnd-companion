@@ -16,6 +16,10 @@ const Card = styled(Box)`
     color: inherit;
     text-decoration: inherit;
 
+    &:last-child {
+        padding-right: 24px;
+    }
+
     &:active,
     &:hover {
         background-color: ${themeGet('border.muted')};

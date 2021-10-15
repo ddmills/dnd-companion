@@ -8,6 +8,7 @@ import { SpellsListFilter } from './SpellsListFilter';
 import { useSpellSearch } from '../../contexts/SpellSearchContext';
 import { useSpellbook } from '../../contexts/SpellbooksContext';
 import { getSpells } from '../../data/Spells';
+import { useNavigation } from '../../contexts/NavigationContext';
 
 export const SpellListPage = () => {
     const data = getSpells();
@@ -16,6 +17,7 @@ export const SpellListPage = () => {
     const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
     const spells = filter.apply(data).sort((s1, s2) => s1.level - s2.level);
     const { theme } = useTheme();
+    const { selectedSpell } = useNavigation();
 
     useEffect(() => {
         if (spellbook) {
@@ -55,7 +57,7 @@ export const SpellListPage = () => {
                 flex="1 1 auto"
                 height="100%"
             >
-                <InfiniteSpellList spells={spells} />
+                <InfiniteSpellList spells={spells} selectedSpell={selectedSpell} />
                 <Drawer isOpen={isFilterDrawerOpen} onDismiss={hideDrawer}>
                     <SpellsListFilter onDismiss={hideDrawer} />
                 </Drawer>
