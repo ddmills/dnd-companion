@@ -45,11 +45,7 @@ export const SpellListPage = () => {
                     icon={StarFillIcon}
                     label="favorites"
                     onClick={filter.toggleFavoritesFilter}
-                    color={
-                        filter.favoritesFilter
-                            ? '#e5d94e'
-                            : 'inherit'
-                    }
+                    color={filter.favoritesFilter ? '#bea262' : 'inherit'}
                 />
                 <PageHeader.Action
                     icon={SearchIcon}

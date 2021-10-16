@@ -51,7 +51,7 @@ PageHeader.Action = ({ icon, label, onClick, color }: PageHeaderActionProp) => (
 );
 
 const PageTitle = styled(Heading)`
-    flex: 1 1 auto
+    flex: 1 1 auto;
 `;
 
 const ActionButton = styled(UnstyledButton)`

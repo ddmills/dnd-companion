@@ -1,10 +1,4 @@
-import {
-    Box,
-    StyledOcticon,
-    Text,
-    Button,
-    themeGet,
-} from '@primer/components';
+import { Box, StyledOcticon, Text, Button, themeGet } from '@primer/components';
 import { StarFillIcon } from '@primer/octicons-react';
 import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
@@ -42,15 +36,15 @@ const SpellButton = styled(Button)`
 
 const AddButton = styled(SpellButton)`
     background-color: #274779;
+    border-color: #101d29a8;
 `;
 
 const RemoveButton = styled(SpellButton)`
     background-color: #373e47;
+    border-color: #0f1c29a1;
 `;
 
-const FavoriteButton = styled(UnstyledButton)`
-`;
-
+const FavoriteButton = styled(UnstyledButton)``;
 
 interface SpellRowProps {
     spell: Spell;
@@ -145,14 +139,12 @@ export const SpellRow = ({ spell }: SpellRowProps) => {
                         ({mods.join(', ')})
                     </Text>
                 )} */}
-                <FavoriteButton
-                    onClick={toggleFav}
-                >
+                <FavoriteButton onClick={toggleFav}>
                     <StyledOcticon
                         icon={StarFillIcon}
                         size={18}
                         mr={2}
-                        color={isFav ? '#e5d94e' : '#454e58'}
+                        color={isFav ? '#bea262' : '#353c45'}
                     />
                 </FavoriteButton>
             </Box>

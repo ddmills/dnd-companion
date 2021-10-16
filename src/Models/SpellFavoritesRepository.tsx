@@ -1,11 +1,11 @@
 const favoritesKey = 'favorite-spells';
 
-export const getFavoriteSpellSlugs = () : string[] => {
+export const getFavoriteSpellSlugs = (): string[] => {
     const rawData = localStorage.getItem(favoritesKey);
     return rawData ? JSON.parse(rawData) : [];
 };
 
-export const toggleFavoriteSpell = (slug: string) : string[] => {
+export const toggleFavoriteSpell = (slug: string): string[] => {
     const favorites = getFavoriteSpellSlugs();
     const idx = favorites.indexOf(slug);
 

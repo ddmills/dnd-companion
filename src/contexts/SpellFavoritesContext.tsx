@@ -1,6 +1,16 @@
-import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from 'react';
+import {
+    createContext,
+    ReactNode,
+    useCallback,
+    useContext,
+    useEffect,
+    useState,
+} from 'react';
 import { Spell } from '../models/Spell';
-import { getFavoriteSpellSlugs, toggleFavoriteSpell } from '../models/SpellFavoritesRepository';
+import {
+    getFavoriteSpellSlugs,
+    toggleFavoriteSpell,
+} from '../models/SpellFavoritesRepository';
 
 interface SpellFavoritesState {
     favorites: string[];
@@ -8,13 +18,17 @@ interface SpellFavoritesState {
     isFavorite: (spell: Spell) => boolean;
 }
 
-const SpellFavoritesContext = createContext<SpellFavoritesState | undefined>(undefined);
+const SpellFavoritesContext = createContext<SpellFavoritesState | undefined>(
+    undefined
+);
 
 interface SpellFavoritesProviderProps {
     children?: ReactNode;
 }
 
-export const SpellFavoritesProvider = ({ children }: SpellFavoritesProviderProps) => {
+export const SpellFavoritesProvider = ({
+    children,
+}: SpellFavoritesProviderProps) => {
     const [favorites, setFavorites] = useState<string[]>([]);
 
     useEffect(() => {
@@ -22,9 +36,12 @@ export const SpellFavoritesProvider = ({ children }: SpellFavoritesProviderProps
         setFavorites(slugs);
     }, []);
 
-    const isFavorite = useCallback((spell: Spell) => {
-        return favorites.includes(spell.slug);
-    }, [favorites]);
+    const isFavorite = useCallback(
+        (spell: Spell) => {
+            return favorites.includes(spell.slug);
+        },
+        [favorites]
+    );
 
     const toggleFavorite = useCallback((spell: Spell) => {
         const slugs = toggleFavoriteSpell(spell.slug);

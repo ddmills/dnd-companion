@@ -1,5 +1,10 @@
 import { Box, Flash, StyledOcticon, Text } from '@primer/components';
-import { AlertIcon, PlusIcon, RepoIcon, StarFillIcon } from '@primer/octicons-react';
+import {
+    AlertIcon,
+    PlusIcon,
+    RepoIcon,
+    StarFillIcon,
+} from '@primer/octicons-react';
 import { useCallback, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router';
 import { useSpellbooks } from '../../contexts/SpellbooksContext';
@@ -39,11 +44,7 @@ export const SpellbookPage = () => {
                     icon={StarFillIcon}
                     label="favorites"
                     onClick={filter.toggleFavoritesFilter}
-                    color={
-                        filter.favoritesFilter
-                            ? '#e5d94e'
-                            : 'inherit'
-                    }
+                    color={filter.favoritesFilter ? '#bea262' : 'inherit'}
                 />
                 <PageHeader.Action
                     icon={PlusIcon}
