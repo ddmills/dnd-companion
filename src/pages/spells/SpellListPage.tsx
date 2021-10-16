@@ -1,7 +1,7 @@
 import { Box, useTheme } from '@primer/components';
 import { PageHeader } from '../../layout/PageHeader';
 import { useCallback, useEffect, useState } from 'react';
-import { RepoIcon, SearchIcon } from '@primer/octicons-react';
+import { RepoIcon, SearchIcon, StarFillIcon } from '@primer/octicons-react';
 import { InfiniteSpellList } from './InfiniteSpellList';
 import { Drawer } from '../../components/Drawer';
 import { SpellsListFilter } from './SpellsListFilter';
@@ -21,6 +21,7 @@ export const SpellListPage = () => {
 
     useEffect(() => {
         if (spellbook) {
+            filter.clear();
             filter.setClassFilter(spellbook.classes);
         } else if (!selectedSpell) {
             filter.clear();
@@ -40,6 +41,16 @@ export const SpellListPage = () => {
         <>
             <PageHeader>
                 <PageHeader.Title icon={RepoIcon} title="Spells" />
+                <PageHeader.Action
+                    icon={StarFillIcon}
+                    label="favorites"
+                    onClick={filter.toggleFavoritesFilter}
+                    color={
+                        filter.favoritesFilter
+                            ? '#e5d94e'
+                            : 'inherit'
+                    }
+                />
                 <PageHeader.Action
                     icon={SearchIcon}
                     label="search"

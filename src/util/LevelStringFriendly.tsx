@@ -40,7 +40,7 @@ const classShortMap: { [key: string]: string } = {
     cleric: 'cle',
     druid: 'dru',
     paladin: 'pal',
-    ranger: 'ran',
+    ranger: 'rng',
     sorcerer: 'sor',
     warlock: 'war',
     wizard: 'wiz',

@@ -4,13 +4,14 @@ import {
     Text,
     Button,
     themeGet,
-    Truncate,
 } from '@primer/components';
-import { PlusIcon, DashIcon } from '@primer/octicons-react';
+import { StarFillIcon } from '@primer/octicons-react';
+import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { UnstyledButton } from '../../components/buttons/UnstyledButton';
 import { useSpellbook, useSpellbooks } from '../../contexts/SpellbooksContext';
+import { useSpellFavorites } from '../../contexts/SpellFavoritesContext';
 import { Spell } from '../../models/Spell';
 import {
     getClassNameShort,
@@ -47,6 +48,10 @@ const RemoveButton = styled(SpellButton)`
     background-color: #373e47;
 `;
 
+const FavoriteButton = styled(UnstyledButton)`
+`;
+
+
 interface SpellRowProps {
     spell: Spell;
 }
@@ -54,7 +59,13 @@ interface SpellRowProps {
 export const SpellRow = ({ spell }: SpellRowProps) => {
     const spellbook = useSpellbook();
     const { saveSpellbook } = useSpellbooks();
+    const { isFavorite, toggleFavorite } = useSpellFavorites();
     const mods = [];
+
+    const isFav = isFavorite(spell);
+    const toggleFav = useCallback(() => {
+        toggleFavorite(spell);
+    }, [spell, toggleFavorite]);
 
     if (spell.ritual) {
         mods.push('rit');
@@ -129,11 +140,21 @@ export const SpellRow = ({ spell }: SpellRowProps) => {
                 <Text fontSize={1} color="#6e7b8a">
                     {spell.classes.map((c) => getClassNameShort(c)).join('/')}
                 </Text>
-                {mods.length > 0 && (
+                {/* {mods.length > 0 && (
                     <Text fontSize={1} color="#6e7b8a">
                         ({mods.join(', ')})
                     </Text>
-                )}
+                )} */}
+                <FavoriteButton
+                    onClick={toggleFav}
+                >
+                    <StyledOcticon
+                        icon={StarFillIcon}
+                        size={18}
+                        mr={2}
+                        color={isFav ? '#e5d94e' : '#454e58'}
+                    />
+                </FavoriteButton>
             </Box>
         </Box>
     );

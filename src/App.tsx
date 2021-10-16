@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { SpellSearchProvider } from './contexts/SpellSearchContext';
 import { SpellbooksProvider } from './contexts/SpellbooksContext';
 import { NavigationProvider } from './contexts/NavigationContext';
+import { SpellFavoritesProvider } from './contexts/SpellFavoritesContext';
 
 const Base = styled(BaseStyles)`
     height: 100%;
@@ -20,15 +21,17 @@ export const App = () => (
     <AppThemeProvider>
         <GraphProvider>
             <SpellbooksProvider>
-                <SpellSearchProvider>
-                    <NavigationProvider>
-                        <Box height="100%" bg="bg.primary" overflowY="auto">
-                            <Base>
-                                <Routes />
-                            </Base>
-                        </Box>
-                    </NavigationProvider>
-                </SpellSearchProvider>
+                <SpellFavoritesProvider>
+                    <SpellSearchProvider>
+                        <NavigationProvider>
+                            <Box height="100%" bg="bg.primary" overflowY="auto">
+                                <Base>
+                                    <Routes />
+                                </Base>
+                            </Box>
+                        </NavigationProvider>
+                    </SpellSearchProvider>
+                </SpellFavoritesProvider>
             </SpellbooksProvider>
         </GraphProvider>
     </AppThemeProvider>

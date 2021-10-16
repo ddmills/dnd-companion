@@ -6,11 +6,13 @@ import {
     useState,
 } from 'react';
 import { Spell } from '../models/Spell';
+import { useSpellFavorites } from './SpellFavoritesContext';
 
 interface SpellSearchState {
     textFilter: string;
     classFilter: Set<string>;
     levelFilter: Set<number>;
+    favoritesFilter: boolean;
 
     addClass: (playerClass: string) => void;
     removeClass: (playerClass: string) => void;
@@ -29,6 +31,8 @@ interface SpellSearchState {
 
     setClassFilter: (playerClasses: string[]) => void;
 
+    toggleFavoritesFilter: () => void;
+
     clear: () => void;
 }
 
@@ -44,11 +48,14 @@ export const SpellSearchProvider = ({ children }: SpellSearchProviderProps) => {
     const [textFilter, setTextFilter] = useState('');
     const [classFilter, setClassFilterState] = useState(new Set<string>());
     const [levelFilter, setLevelFilter] = useState(new Set<number>());
+    const [favoritesFilter, setFavoritesFilter] = useState(false);
+    const { favorites } = useSpellFavorites();
 
     const clear = useCallback(() => {
         setTextFilter('');
         setClassFilterState(new Set());
         setLevelFilter(new Set());
+        setFavoritesFilter(false);
     }, []);
 
     const addClass = (playerClass: string) => {
@@ -56,6 +63,10 @@ export const SpellSearchProvider = ({ children }: SpellSearchProviderProps) => {
         newClassFilter.add(playerClass);
         setClassFilterState(newClassFilter);
     };
+
+    const toggleFavoritesFilter = useCallback(() => {
+        setFavoritesFilter(!favoritesFilter);
+    }, [favoritesFilter, setFavoritesFilter]);
 
     const setClassFilter = useCallback((playerClasses: string[]) => {
         const newClassFilter = new Set(playerClasses);
@@ -117,13 +128,18 @@ export const SpellSearchProvider = ({ children }: SpellSearchProviderProps) => {
                         return false;
                     }
                 }
-
+                if (favoritesFilter) {
+                    if (!favorites.includes(s.slug)) {
+                        return false;
+                    }
+                }
                 return true;
             }) || []
         );
     };
 
     const state: SpellSearchState = {
+        favoritesFilter,
         textFilter,
         classFilter,
         levelFilter,
@@ -136,6 +152,7 @@ export const SpellSearchProvider = ({ children }: SpellSearchProviderProps) => {
         hasLevelFilter,
         hasTextFilter,
         hasFilter,
+        toggleFavoritesFilter,
         apply,
         setClassFilter,
         clear,

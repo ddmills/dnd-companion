@@ -12,6 +12,7 @@ export const PageHeader = ({ children }: PageHeaderProps) => (
         boxShadow="shadow.small"
         display="flex"
         justifyContent="space-between"
+        p={2}
     >
         {children}
     </Box>
@@ -23,10 +24,10 @@ interface PageHeaderTitleProps {
 }
 
 PageHeader.Title = ({ icon, title }: PageHeaderTitleProps) => (
-    <Heading fontSize={3} fontWeight={600} p={4}>
+    <PageTitle fontSize={3} fontWeight={600} p={3}>
         {icon && <StyledOcticon icon={icon} size={24} mr={1} />}
         <span>{title}</span>
-    </Heading>
+    </PageTitle>
 );
 
 interface PageHeaderActionProp {
@@ -49,8 +50,12 @@ PageHeader.Action = ({ icon, label, onClick, color }: PageHeaderActionProp) => (
     </ActionButton>
 );
 
+const PageTitle = styled(Heading)`
+    flex: 1 1 auto
+`;
+
 const ActionButton = styled(UnstyledButton)`
-    padding: 24px;
+    padding: 12px;
     &:active {
         background-color: ${themeGet('colors.canvas.subtle')};
     }
