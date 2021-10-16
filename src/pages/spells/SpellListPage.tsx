@@ -57,7 +57,10 @@ export const SpellListPage = () => {
                 flex="1 1 auto"
                 height="100%"
             >
-                <InfiniteSpellList spells={spells} selectedSpell={selectedSpell} />
+                <InfiniteSpellList
+                    spells={spells}
+                    selectedSpell={selectedSpell}
+                />
                 <Drawer isOpen={isFilterDrawerOpen} onDismiss={hideDrawer}>
                     <SpellsListFilter onDismiss={hideDrawer} />
                 </Drawer>

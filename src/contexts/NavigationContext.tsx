@@ -1,9 +1,4 @@
-import {
-    createContext,
-    ReactNode,
-    useContext,
-    useState,
-} from 'react';
+import { createContext, ReactNode, useContext, useState } from 'react';
 import { Spell } from '../models/Spell';
 
 interface NavigationState {

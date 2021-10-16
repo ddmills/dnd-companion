@@ -67,21 +67,16 @@ export const SpellRow = ({ spell }: SpellRowProps) => {
             borderBottom="1px solid #343940"
             p={3}
         >
-            <Box
-                display="flex"
-                justifyContent="space-between"
-            >
-                <Card
-                    as={Link}
-                    to={`/spell/${spell.slug}`}
-                    display="block"
-                >
+            <Box display="flex" justifyContent="space-between">
+                <Card as={Link} to={`/spell/${spell.slug}`} display="block">
                     <Box display="flex" justifyContent="space-between">
                         <Text fontSize={2} fontWeight={600}>
                             {spell.name}
                         </Text>
                         {mods.length > 0 && (
-                            <Text fontSize={1} color="#6e7b8a">({mods.join(', ')})</Text>
+                            <Text fontSize={1} color="#6e7b8a">
+                                ({mods.join(', ')})
+                            </Text>
                         )}
                     </Box>
                     <Box>

@@ -31,7 +31,10 @@ const SpellListContainer = styled.div`
     height: 100%;
 `;
 
-export const InfiniteSpellList = ({ spells, selectedSpell }: InfiniteSpellListProps) => {
+export const InfiniteSpellList = ({
+    spells,
+    selectedSpell,
+}: InfiniteSpellListProps) => {
     const containerRef = useRef() as React.MutableRefObject<HTMLInputElement>;
     const listRef = useRef() as React.MutableRefObject<FixedSizeList>;
     const { width, height } = useResizeDetector({ targetRef: containerRef });
@@ -39,7 +42,9 @@ export const InfiniteSpellList = ({ spells, selectedSpell }: InfiniteSpellListPr
 
     useEffect(() => {
         if (selectedSpell) {
-            const selectedIdx = spells.findIndex((s) => s.slug === selectedSpell.slug);
+            const selectedIdx = spells.findIndex(
+                (s) => s.slug === selectedSpell.slug
+            );
 
             if (selectedIdx > 0 && scrollOffset) {
                 listRef.current?.scrollTo(scrollOffset);
@@ -47,11 +52,14 @@ export const InfiniteSpellList = ({ spells, selectedSpell }: InfiniteSpellListPr
         }
     }, [selectedSpell, scrollOffset, spells]);
 
-    const handleScroll = useCallback((e) => {
-        if (e.scrollOffset !== scrollOffset && e.scrollOffset > 0) {
-            setScrollOffset(e.scrollOffset);
-        }
-    }, [scrollOffset, setScrollOffset]);
+    const handleScroll = useCallback(
+        (e) => {
+            if (e.scrollOffset !== scrollOffset && e.scrollOffset > 0) {
+                setScrollOffset(e.scrollOffset);
+            }
+        },
+        [scrollOffset, setScrollOffset]
+    );
 
     return (
         <SpellListContainer ref={containerRef}>

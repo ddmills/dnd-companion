@@ -26,7 +26,7 @@ const HomePageLink = styled(Box)`
 `;
 
 export const HomePage = () => {
-    const {setSelectedSpell} = useNavigation();
+    const { setSelectedSpell } = useNavigation();
 
     useEffect(() => {
         setSelectedSpell(undefined);
@@ -48,7 +48,11 @@ export const HomePage = () => {
                     </HomePageLink>
                 </ListItem>
                 <ListItem>
-                    <HomePageLink as={Button} onClick={deleteAllSpellbooks} p={4}>
+                    <HomePageLink
+                        as={Button}
+                        onClick={deleteAllSpellbooks}
+                        p={4}
+                    >
                         <StyledOcticon icon={TrashIcon} size={24} mr={3} />
                         Delete all spellbooks
                     </HomePageLink>
