@@ -63,7 +63,7 @@ export const InfiniteSpellList = ({ spells, selectedSpell }: InfiniteSpellListPr
                 height={height ?? 300}
                 itemCount={spells.length}
                 itemData={spells}
-                itemSize={81}
+                itemSize={105}
             >
                 {Row}
             </FixedSizeList>

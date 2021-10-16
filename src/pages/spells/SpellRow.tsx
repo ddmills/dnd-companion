@@ -1,4 +1,4 @@
-import { Box, StyledOcticon, Text, themeGet } from '@primer/components';
+import { Box, StyledOcticon, Text, Button, themeGet } from '@primer/components';
 import { PlusIcon, DashIcon } from '@primer/octicons-react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -26,6 +26,19 @@ const Card = styled(Box)`
     }
 `;
 
+const SpellButton = styled(Button)`
+    font-size: 14px;
+    padding: 4px 8px;
+`;
+
+const AddButton = styled(SpellButton)`
+    background-color: #274779;
+`;
+
+const RemoveButton = styled(SpellButton)`
+    background-color: #373e47;
+`;
+
 interface SpellRowProps {
     spell: Spell;
 }
@@ -50,80 +63,77 @@ export const SpellRow = ({ spell }: SpellRowProps) => {
     return (
         <Box
             display="flex"
-            justifyContent="space-between"
+            flexDirection="column"
             borderBottom="1px solid #343940"
+            p={3}
         >
-            <Card
-                as={Link}
-                to={`/spell/${spell.slug}`}
-                pl={4}
-                pt={3}
-                pb={3}
-                display="block"
+            <Box
+                display="flex"
+                justifyContent="space-between"
             >
-                <Box display="flex" justifyContent="space-between">
-                    <Text fontSize={2} fontWeight={600}>
-                        {spell.name}
-                    </Text>
-                    {mods.length > 0 && (
-                        <Text fontSize={1}>({mods.join(', ')})</Text>
-                    )}
-                </Box>
-                <Box>
-                    <Text fontSize={1}>
-                        {levelFriendly(spell.level)} level
-                        <Text color={getSpellSchoolColor(spell.school)}>
-                            {' ' + spell.school.toLowerCase()}
+                <Card
+                    as={Link}
+                    to={`/spell/${spell.slug}`}
+                    display="block"
+                >
+                    <Box display="flex" justifyContent="space-between">
+                        <Text fontSize={2} fontWeight={600}>
+                            {spell.name}
                         </Text>
-                        <Text color="#6e7b8a">
-                            {' [' + spell.components.join(', ')}]
+                        {mods.length > 0 && (
+                            <Text fontSize={1} color="#6e7b8a">({mods.join(', ')})</Text>
+                        )}
+                    </Box>
+                    <Box>
+                        <Text fontSize={1}>
+                            {levelFriendly(spell.level)} level
+                            <Text color={getSpellSchoolColor(spell.school)}>
+                                {' ' + spell.school.toLowerCase()}
+                            </Text>
+                            <Text color="#6e7b8a">
+                                {' [' + spell.components.join(', ')}]
+                            </Text>
                         </Text>
-                    </Text>
-                </Box>
-                {/* <Box>
-                    <Text fontSize={1} color="#6e7b8a">
-                        <Truncate title={spell.classes.join(', ')} maxWidth="100%">
-                            {spell.classes.join(', ')}
-                        </Truncate>
-                    </Text>
-                </Box> */}
-            </Card>
-            {spellbook && (
-                <Box p={2} display="flex">
-                    {inSpellbook(spell) ? (
-                        <UnstyledButton
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                e.preventDefault();
+                    </Box>
+                </Card>
+                {spellbook && (
+                    <Box pl={3}>
+                        {inSpellbook(spell) ? (
+                            <RemoveButton
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    e.preventDefault();
 
-                                const idx = spellbook.spells.findIndex(
-                                    (s) => s.name === spell.name
-                                );
-                                spellbook.spells.splice(idx, 1);
-                                saveSpellbook(spellbook);
-                            }}
-                        >
-                            <Box p={2}>
-                                <StyledOcticon icon={DashIcon} size={24} />
-                            </Box>
-                        </UnstyledButton>
-                    ) : (
-                        <UnstyledButton
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                e.preventDefault();
+                                    const idx = spellbook.spells.findIndex(
+                                        (s) => s.name === spell.name
+                                    );
+                                    spellbook.spells.splice(idx, 1);
+                                    saveSpellbook(spellbook);
+                                }}
+                            >
+                                Remove
+                            </RemoveButton>
+                        ) : (
+                            <AddButton
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    e.preventDefault();
 
-                                spellbook.spells.push(spell);
-                                saveSpellbook(spellbook);
-                            }}
-                        >
-                            <Box p={2}>
-                                <StyledOcticon icon={PlusIcon} size={24} />
-                            </Box>
-                        </UnstyledButton>
-                    )}
-                </Box>
-            )}
+                                    spellbook.spells.push(spell);
+                                    saveSpellbook(spellbook);
+                                }}
+                            >
+                                Add
+                            </AddButton>
+                        )}
+                    </Box>
+                )}
+            </Box>
+            <Box>
+                <Text fontSize={1} color="#6e7b8a">
+                    {spell.classes.join(', ')}
+                </Text>
+            </Box>
         </Box>
     );
 };
