@@ -1,4 +1,11 @@
-import { Box, StyledOcticon, Text, Button, themeGet } from '@primer/components';
+import {
+    Box,
+    StyledOcticon,
+    Text,
+    Button,
+    themeGet,
+    Truncate,
+} from '@primer/components';
 import { PlusIcon, DashIcon } from '@primer/octicons-react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -6,6 +13,7 @@ import { UnstyledButton } from '../../components/buttons/UnstyledButton';
 import { useSpellbook, useSpellbooks } from '../../contexts/SpellbooksContext';
 import { Spell } from '../../models/Spell';
 import {
+    getClassNameShort,
     getSpellSchoolColor,
     levelFriendly,
 } from '../../util/LevelStringFriendly';
@@ -69,16 +77,9 @@ export const SpellRow = ({ spell }: SpellRowProps) => {
         >
             <Box display="flex" justifyContent="space-between">
                 <Card as={Link} to={`/spell/${spell.slug}`} display="block">
-                    <Box display="flex" justifyContent="space-between">
-                        <Text fontSize={2} fontWeight={600}>
-                            {spell.name}
-                        </Text>
-                        {mods.length > 0 && (
-                            <Text fontSize={1} color="#6e7b8a">
-                                ({mods.join(', ')})
-                            </Text>
-                        )}
-                    </Box>
+                    <Text fontSize={2} fontWeight={600}>
+                        {spell.name}
+                    </Text>
                     <Box>
                         <Text fontSize={1}>
                             {levelFriendly(spell.level)} level
@@ -124,10 +125,15 @@ export const SpellRow = ({ spell }: SpellRowProps) => {
                     </Box>
                 )}
             </Box>
-            <Box>
+            <Box display="flex" justifyContent="space-between">
                 <Text fontSize={1} color="#6e7b8a">
-                    {spell.classes.join(', ')}
+                    {spell.classes.map((c) => getClassNameShort(c)).join('/')}
                 </Text>
+                {mods.length > 0 && (
+                    <Text fontSize={1} color="#6e7b8a">
+                        ({mods.join(', ')})
+                    </Text>
+                )}
             </Box>
         </Box>
     );

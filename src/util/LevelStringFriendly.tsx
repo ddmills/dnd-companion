@@ -34,3 +34,17 @@ export const getSpellSchoolColor = (school?: string): string =>
 
 export const capitalizeFirstLetter = (str: string): string =>
     str.charAt(0).toUpperCase() + str.slice(1);
+
+const classShortMap: { [key: string]: string } = {
+    bard: 'brd',
+    cleric: 'cle',
+    druid: 'dru',
+    paladin: 'pal',
+    ranger: 'ran',
+    sorcerer: 'sor',
+    warlock: 'war',
+    wizard: 'wiz',
+};
+
+export const getClassNameShort = (classname: string): string =>
+    classShortMap[classname.toLowerCase()] ?? '?';
