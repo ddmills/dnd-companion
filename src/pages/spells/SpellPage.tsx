@@ -5,7 +5,9 @@ import { useParams } from 'react-router';
 import { getSpellSchoolColor } from '../../util/LevelStringFriendly';
 import { getSpell } from '../../data/Spells';
 import { useNavigation } from '../../contexts/NavigationContext';
-import { useEffect } from 'react';
+import { ReactNodeArray, useEffect } from 'react';
+import reactStringReplace from 'react-string-replace';
+import styled from 'styled-components';
 
 interface SpellPageParams {
     slug: string;
@@ -28,6 +30,36 @@ const renderPart = (label?: string, value?: string) => {
 
 const isSpellMinorHeading = (text: string): boolean => {
     return text.length < 24 && !text.startsWith('-') && text.endsWith('.');
+};
+
+const isSpellListItem = (text: string): boolean => {
+    return text.startsWith('- ');
+};
+
+const reg = /((?:\d+)?d(?:\d+)(?:[+-]\d+)?)/g;
+
+const DiceRoll = styled.span`
+    font-weight: 700;
+    color: #bdeaec;
+`;
+
+const renderDescText = (text: string): ReactNodeArray => {
+    return reactStringReplace(text, reg, (match, i) => {
+        return <DiceRoll key={i}>{match}</DiceRoll>;
+    });
+};
+
+const renderDescription = (description: string[]): ReactNodeArray => {
+    return description.flatMap((desc, idx) => (
+        <Text
+            mt={isSpellListItem(desc) ? 0 : 2}
+            mb={isSpellListItem(desc) ? 0 : 2}
+            key={idx}
+            fontWeight={isSpellMinorHeading(desc) ? 700 : 400}
+        >
+            {renderDescText(desc)}
+        </Text>
+    ));
 };
 
 export const SpellPage = () => {
@@ -88,17 +120,7 @@ export const SpellPage = () => {
                             mt={3}
                             mb={3}
                         >
-                            {spell.description.map((desc, idx) => (
-                                <Text
-                                    mb={2}
-                                    key={idx}
-                                    fontWeight={
-                                        isSpellMinorHeading(desc) ? 700 : 400
-                                    }
-                                >
-                                    {desc}
-                                </Text>
-                            ))}
+                            {renderDescription(spell.description)}
                         </Box>
 
                         {spell.higherLevelDesc?.length! > 0 && (
@@ -112,11 +134,7 @@ export const SpellPage = () => {
                                     mt={2}
                                     mb={4}
                                 >
-                                    {spell.higherLevelDesc?.map((desc, idx) => (
-                                        <Text mb={2} key={idx}>
-                                            {desc}
-                                        </Text>
-                                    ))}
+                                    {renderDescription(spell.higherLevelDesc!)}
                                 </Box>
                             </>
                         )}

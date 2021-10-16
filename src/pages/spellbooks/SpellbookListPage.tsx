@@ -1,4 +1,4 @@
-import { Box, Text } from '@primer/components';
+import { Box, Text, Button, ButtonPrimary } from '@primer/components';
 import { PlusIcon, StackIcon } from '@primer/octicons-react';
 import { useState } from 'react';
 import { PageHeader } from '../../layout/PageHeader';
@@ -28,6 +28,21 @@ export const SpellbookListPage = () => {
                 />
             </PageHeader>
             <Box display="flex" flexDirection="column">
+                {spellbooks.length <= 0 && (
+                    <Box
+                        pt={5}
+                        pl={3}
+                        pr={3}
+                        display="flex"
+                        justifyContent="center"
+                        flexDirection="column"
+                        alignItems="center"
+                    >
+                        <Text pb={5} fontSize={3} color="#3c4147">
+                            You have no spellbooks.
+                        </Text>
+                    </Box>
+                )}
                 <List>
                     {spellbooks.map((book) => (
                         <ListItem key={book.spellbookId}>

@@ -42,7 +42,7 @@ export const SpellbookPage = () => {
                 />
                 <PageHeader.Action
                     icon={StarFillIcon}
-                    label="favorites"
+                    label="Favorites"
                     onClick={filter.toggleFavoritesFilter}
                     color={filter.favoritesFilter ? '#bea262' : 'inherit'}
                 />
@@ -63,6 +63,23 @@ export const SpellbookPage = () => {
                         {spells.map((spell) => (
                             <SpellRow key={spell.name} spell={spell} />
                         ))}
+                        {spellbook.spells.length <= 0 && (
+                            <Box
+                                pt={5}
+                                pl={3}
+                                pr={3}
+                                display="flex"
+                                justifyContent="center"
+                            >
+                                <Text
+                                    textAlign="center"
+                                    fontSize={3}
+                                    color="#3c4147"
+                                >
+                                    This spellbook is empty.
+                                </Text>
+                            </Box>
+                        )}
                     </Box>
                 ) : (
                     <Flash variant="danger">
