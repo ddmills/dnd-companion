@@ -1,11 +1,12 @@
 import { Box, Flash, Heading, StyledOcticon, Text } from '@primer/components';
-import { AlertIcon, BookmarkFillIcon } from '@primer/octicons-react';
+import { AlertIcon, BookmarkFillIcon, StarFillIcon } from '@primer/octicons-react';
 import { PageHeader } from '../../layout/PageHeader';
 import { useParams } from 'react-router';
 import { getSpellSchoolColor } from '../../util/LevelStringFriendly';
 import { getSpell } from '../../data/Spells';
 import { useNavigation } from '../../contexts/NavigationContext';
-import { ReactNodeArray, useEffect } from 'react';
+import { ReactNodeArray, useCallback, useEffect } from 'react';
+import { useSpellFavorites } from '../../contexts/SpellFavoritesContext';
 import reactStringReplace from 'react-string-replace';
 import styled from 'styled-components';
 
@@ -66,11 +67,18 @@ export const SpellPage = () => {
     const { slug } = useParams<SpellPageParams>();
     const spell = getSpell(slug);
     const { setSelectedSpell } = useNavigation();
+    const {isFavorite, toggleFavorite} = useSpellFavorites();
     const notFound = !spell;
 
     useEffect(() => {
         setSelectedSpell(spell);
     }, [spell, setSelectedSpell]);
+
+    const favorite = useCallback(() => {
+        if (spell) {
+            toggleFavorite(spell);
+        }
+    }, [toggleFavorite, spell]);
 
     return (
         <Box display="flex" flexDirection="column">
@@ -79,6 +87,14 @@ export const SpellPage = () => {
                     icon={BookmarkFillIcon}
                     title={notFound ? 'Not found' : spell.name}
                 />
+                {spell && (
+                    <PageHeader.Action
+                        icon={StarFillIcon}
+                        label="Favorite"
+                        onClick={favorite}
+                        color={isFavorite(spell) ? '#bea262' : 'inherit'}
+                    />
+                )}
             </PageHeader>
             <Box
                 display="flex"
