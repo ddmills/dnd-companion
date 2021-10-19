@@ -1,12 +1,20 @@
 import { Box, Text, Button, ButtonPrimary } from '@primer/components';
 import { PlusIcon, StackIcon } from '@primer/octicons-react';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { PageHeader } from '../../layout/PageHeader';
 import { useSpellbooks } from '../../contexts/SpellbooksContext';
 import { SpellbookCreate } from './SpellbookCreate';
+import { SpellbookDelete } from './SpellbookDelete';
 import { List, ListItem } from '../../components/spells/list/List';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
+const DeleteButton = styled(Button)`
+    font-size: 14px;
+    padding: 4px 8px;
+    background-color: #373e47;
+    border-color: #0f1c29a1;
+`;
 
 const SpellbookRow = styled(Box)`
     text-decoration: none;
@@ -14,8 +22,18 @@ const SpellbookRow = styled(Box)`
 `;
 
 export const SpellbookListPage = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [selectedSpellbook, setSelectedSpellbook] = useState(undefined);
     const { spellbooks } = useSpellbooks();
+
+    const showDeleteSpellbookModal = useCallback(
+        (spellbook) => {
+            setSelectedSpellbook(spellbook);
+            setIsDeleteModalOpen(true);
+        },
+        [setSelectedSpellbook, setIsDeleteModalOpen]
+    );
 
     return (
         <>
@@ -24,7 +42,7 @@ export const SpellbookListPage = () => {
                 <PageHeader.Action
                     icon={PlusIcon}
                     label="Create spellbook"
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={() => setIsCreateModalOpen(true)}
                 />
             </PageHeader>
             <Box display="flex" flexDirection="column">
@@ -59,12 +77,23 @@ export const SpellbookListPage = () => {
                                     <Text fontSize={2} fontWeight={600}>
                                         {book.name}
                                     </Text>
-                                    <Text fontSize={1} color="#6e7b8a">
-                                        {book.spells.length} spells
-                                    </Text>
+                                    <DeleteButton
+                                        onClick={(e) => {
+                                            console.log('CLICKED BTN');
+                                            e.stopPropagation();
+                                            e.preventDefault();
+                                            showDeleteSpellbookModal(book);
+                                        }}
+                                    >
+                                        Delete
+                                    </DeleteButton>
                                 </Box>
-                                <Box>
+                                <Box
+                                    display="flex"
+                                    justifyContent="space-between"
+                                >
                                     <Text fontSize={1} color="#6e7b8a">
+                                        {book.spells.length} spells,{' '}
                                         {book.classes.join(', ')}
                                     </Text>
                                 </Box>
@@ -74,8 +103,16 @@ export const SpellbookListPage = () => {
                 </List>
             </Box>
             <SpellbookCreate
-                isOpen={isModalOpen}
-                onDismiss={() => setIsModalOpen(false)}
+                isOpen={isCreateModalOpen}
+                onDismiss={() => setIsCreateModalOpen(false)}
+            />
+            <SpellbookDelete
+                spellbook={selectedSpellbook}
+                isOpen={isDeleteModalOpen}
+                onDismiss={() => {
+                    setIsDeleteModalOpen(false);
+                    setSelectedSpellbook(undefined);
+                }}
             />
         </>
     );

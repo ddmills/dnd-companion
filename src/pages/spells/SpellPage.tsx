@@ -1,5 +1,9 @@
 import { Box, Flash, Heading, StyledOcticon, Text } from '@primer/components';
-import { AlertIcon, BookmarkFillIcon, StarFillIcon } from '@primer/octicons-react';
+import {
+    AlertIcon,
+    BookmarkFillIcon,
+    StarFillIcon,
+} from '@primer/octicons-react';
 import { PageHeader } from '../../layout/PageHeader';
 import { useParams } from 'react-router';
 import { getSpellSchoolColor } from '../../util/LevelStringFriendly';
@@ -67,7 +71,7 @@ export const SpellPage = () => {
     const { slug } = useParams<SpellPageParams>();
     const spell = getSpell(slug);
     const { setSelectedSpell } = useNavigation();
-    const {isFavorite, toggleFavorite} = useSpellFavorites();
+    const { isFavorite, toggleFavorite } = useSpellFavorites();
     const notFound = !spell;
 
     useEffect(() => {

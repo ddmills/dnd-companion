@@ -29,10 +29,6 @@ export const deleteSpellbook = (book: Spellbook) => {
     localStorage.removeItem(key);
 };
 
-export const deleteAllSpellbooks = () => {
-    localStorage.clear();
-};
-
 export const getSpellbooks = (): Spellbook[] => {
     const books = [];
 
